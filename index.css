@@ -42,33 +42,44 @@ p:first-child {
   margin-top: 0px;
   
 }
+div.relative {
+  position: relative;
+}
+div.attribution {
+  font-size: 0.75em;
+  border-bottom: none;
+}
 div.profiles {
-  /* text-align: right; */
-  padding-top: 10px;
-  padding-bottom: 24px;
-  /* background-color: #eee; */
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+div.profiles {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
 }
 div.profiles a {
   margin: 0;
   padding: 0;
   font-size: 0;
+  line-height: 0;
 }
 div.profiles a {
   display: inline-block;
-  background-size: 90%;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
-  border: 1px solid #999;
   margin: 0;
-  height: 50px;
-  width: 50px;
+  height: 45px;
+  width: 45px;
 }
 div.profiles a.twitter {
   background-image: url('twitter.png');
-  background-size: 95%;
 }
 div.profiles a.github {
   background-image: url('blacktocat.png');
+  background-size: 90%;
 }
 
 div.main > h3 {
@@ -112,3 +123,17 @@ span.comment {
 /*   text-align: justify; */
 /*   font-size: 0.8em; */
 /* } */
+.github-activity,
+.twitter-activity {
+  margin-top: 15px;
+  display: none;
+}
+
+.github-activity li,
+.twitter-activity li {
+  font-size: 0.8em;
+  line-height: 1em;
+  padding: 5px 3px 5px 25px;
+  background-repeat: no-repeat;
+  background-position: left center;
+}

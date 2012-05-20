@@ -3,6 +3,7 @@
   <head>
     <title>Andrea Lattuada</title>
     <link rel="stylesheet" type="text/css" href="index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-30551292-1']);
@@ -16,10 +17,16 @@
     </script>
   </head>
   <body>
-    <div class="main">
+    <div class="main relative">
+      <div class="profiles">
+        <a class="twitter" href="http://twitter.com/utaal">@utaal</a>
+        <a class="github" href="http://github.com/utaal">github.com/utaal</a>
+      </div>
       <p>Andrea Lattuada</p>
       <p>software engineering student</p>
       <p>(passionate about distributed systems &amp; programming language design)</p>
+      <div class="twitter-activity">
+      </div>
     </div>
     <div class="main projects">
       <h3>working on</h3>
@@ -32,6 +39,8 @@
         a <a href="https://gist.github.com/2226428" >m68k assembler parser and interpreter</a>
         <span class="comment">written in Scala to learn Scala</span>
       </p>
+      <div class="github-activity">
+      </div>
     </div>
     <div class="main projects">
       <h3>experimented with</h3>
@@ -44,10 +53,6 @@
         <span class="comment">using node.js, d3.js and socket.io</span>
       </p>
 
-    </div>
-    <div class="main profiles">
-      <a class="twitter" href="http://twitter.com/utaal">@utaal</a>
-      <a class="github" href="http://github.com/utaal">github.com/utaal</a>
     </div>
     <div class="main">
       <ul class="resume">
@@ -76,5 +81,17 @@
         </li>
       </ul>
     </div>
+    <div class="main attribution">
+      <p>this page's <a href="index.js">script file</a>
+        includes customized code fragments extracted from
+        <a href="http://christianv.github.com/jquery-lifestream/">jQuery Lifestream</a>
+        (<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>)
+        by <a href="https://github.com/christianv">Christian Vuerings</a><br/>
+        and <a href="http://ejohn.org/blog/javascript-micro-templating/">Simple JavaScript Templating</a> (MIT licensed) by
+        <a href="http://ejohn.org/">John Resig</a>
+      </p>
+    </div>
+    <link rel="stylesheet" type="text/css" href="serviceicons.css" />
+    <script type="text/javascript" src="index.js"></script>
   </body>
 </html>
