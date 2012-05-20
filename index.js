@@ -211,13 +211,20 @@ var parseGithubStatus = function( status ) {
 
 var $githubActivity = $(".github-activity");
 
+var dateTemplate = '<span class="date">' +
+  'on <%=status.created_at.format("MMM Do") %></span>';
+
 var showGithub = function(result) {
-  var data = result.data.slice(0, 5);
+  var data = result.data;
   var $ul = $("<ul>");
   $githubActivity.append($ul);
-  data.map(function (status) {
+  data.filter(function(status) {
+    return status.type !== 'PushEvent';
+  }).slice(0, 3).map(function (status) {
     var $li = $("<li>", { 'class': 'lifestream-github' });
-    $li.html(parseGithubStatus(status));
+    status.created_at = moment(status.created_at);
+    var date = tmpl(dateTemplate, {status: status});
+    $li.html(parseGithubStatus(status) + ' ' + date);
     $ul.append($li);
     //   date: new Date(status.created_at),
   });
