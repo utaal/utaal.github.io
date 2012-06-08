@@ -80,7 +80,6 @@ div.profiles a.twitter {
 }
 div.profiles a.github {
   background-image: url('blacktocat.png');
-  background-size: 95%;
 }
 
 div.main > h3 {
