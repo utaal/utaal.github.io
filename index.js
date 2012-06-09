@@ -84,7 +84,7 @@ var parseTwitter = function(data) {
   var $ul = $("<ul>");
   $twitterActivity.append($ul);
   data.map(function (status) {
-    var $li = $("<li>", { 'class': 'lifestream-twitter' });
+    var $li = $("<li>", { 'class': 'twitter-bgicon' });
     $li.html(linkify(status.text));
     $ul.append($li);
     //   date: new Date(status.created_at),
@@ -221,7 +221,7 @@ var showGithub = function(result) {
   data.filter(function(status) {
     return status.type !== 'PushEvent';
   }).slice(0, 3).map(function (status) {
-    var $li = $("<li>", { 'class': 'lifestream-github' });
+    var $li = $("<li>", { 'class': 'github-bgicon' });
     status.created_at = moment(status.created_at);
     var date = tmpl(dateTemplate, {status: status});
     $li.html(parseGithubStatus(status) + ' ' + date);
