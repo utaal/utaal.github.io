@@ -1,18 +1,13 @@
 * { margin: 0; padding: 0;}
 
 body, html { height:100%; }
-
-
 body {
-/*  background-color: #222; */
   padding-top: 20px;
   font-family: sans-serif;
 }
-
 a {
   text-decoration: none;
 }
-
 h1#title {
   display: none;
   margin-top: 20px;
@@ -21,15 +16,23 @@ h1#title {
   text-align: center;
 }
 div.main {
-  /* -moz-box-shadow: inset 1px -1px 8px #666; */
-  /* -webkit-box-shadow: inset 1px -1px 8px #666; */
-  /* box-shadow: inset 1px -1px 8px #666; */
   background-color: white;
   padding: 30px 10px 30px 10px;
-  margin: 0px auto;
   color: #555;
-  width: 400px;
   border-bottom: 1px solid #999;
+}
+@media screen and (min-width: 461px) {
+  div.main {
+    margin: 0px auto;
+    width: 400px;
+  }
+}
+@media handheld, only screen and (max-width: 460px), only screen and (max-device-width: 460px) 
+{
+  div.main {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
 div.main:first-child {
   border-top: 1px solid #999;
@@ -64,16 +67,21 @@ div.profiles a {
   padding: 0;
   font-size: 0;
   line-height: 0;
+  color: transparent;
 }
 div.profiles a {
   display: inline-block;
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
-  border: solid 1px #999;
   margin: 0;
   height: 50px;
   width: 50px;
+}
+@media screen and (min-width: 461px) {
+  div.profiles a {
+    border: solid 1px #999;
+  }
 }
 div.profiles a.twitter {
   background-image: url('twitter.png');
