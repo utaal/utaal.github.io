@@ -34,12 +34,13 @@
   };
 })();
 
-var WAIT_FOR = 2;
+var WAIT_FOR = 3;
 var notifyCompleted = function(id) {
   --WAIT_FOR;
   if (WAIT_FOR == 0) {
     $twitterActivity.slideDown();
     $githubActivity.slideDown();
+    $stackoverflowActivity.slideDown();
   }
 }
 
@@ -212,7 +213,7 @@ var parseGithubStatus = function( status ) {
 var $githubActivity = $(".github-activity");
 
 var dateTemplate = '<span class="date">' +
-  'on <%=status.created_at.format("MMM Do") %></span>';
+  'on <%=created_at.format("MMM Do") %></span>';
 
 var showGithub = function(result) {
   var data = result.data;
@@ -223,7 +224,7 @@ var showGithub = function(result) {
   }).slice(0, 3).map(function (status) {
     var $li = $("<li>", { 'class': 'github-bgicon' });
     status.created_at = moment(status.created_at);
-    var date = tmpl(dateTemplate, {status: status});
+    var date = tmpl(dateTemplate, {created_at: status.created_at});
     $li.html(parseGithubStatus(status) + ' ' + date);
     $ul.append($li);
     //   date: new Date(status.created_at),
@@ -235,4 +236,68 @@ $.ajax({
   url: 'https://api.github.com/users/utaal/events/public'
 , dataType: 'jsonp'
 , success: showGithub
+});
+
+// stackoverflow
+var $stackoverflowActivity= $(".stackoverflow-activity");
+
+var stackoverflowTemplate = '<a href="<%=link %>"><%=text %></a> <%=title %>';
+
+var parseStackoverflowItem = function( item ) {
+  var text="", title="", link="",
+  stackoverflow_link = "http://stackoverflow.com/users/" + "123984",
+  question_link = "http://stackoverflow.com/questions/";
+
+  if(item.timeline_type === "badge") {
+    text = "was " + item.action + " the '" + item.description + "' badge";
+    title = item.detail;
+    link = stackoverflow_link + "?tab=reputation";
+  }
+  else if (item.timeline_type === "comment") {
+    text = "commented on";
+    title = item.description;
+    link = question_link + item.post_id;
+  }
+  else if (item.timeline_type === "revision"
+        || item.timeline_type === "accepted"
+        || item.timeline_type === "askoranswered") {
+    text = (item.timeline_type === 'askoranswered' ?
+           item.action : item.action + ' ' + item.post_type);
+    title = item.detail || item.description || "";
+    link = question_link + item.post_id;
+  }
+  return tmpl(stackoverflowTemplate, {
+    link: link,
+    title: title,
+    text: text
+  });
+},
+convertDate = function( date ) {
+  return new Date(date * 1000);
+};
+
+var showStackoverflow = function(result) {
+  var $ul = $("<ul>");
+  $stackoverflowActivity.append($ul);
+  result.user_timelines.map(function (status) {
+    var $li = $("<li>", { 'class': 'stackoverflow-bgicon' });
+    var created_at = moment.unix(status.creation_date);
+    var date = tmpl(dateTemplate, {created_at: created_at});
+    $li.html(parseStackoverflowItem(status) + ' ' + date);
+    $ul.append($li);
+    //   date: new Date(status.created_at),
+  });
+  notifyCompleted('.stackoverflow-activity');
+}
+
+$.ajax({
+  url: "http://api.stackoverflow.com/1.1/users/" + "123984"
+         + "/timeline?"
+         + "jsonp",
+  data: {
+    pagesize: 2
+  },
+  dataType: "jsonp",
+  jsonp: 'jsonp',
+  success: showStackoverflow
 });

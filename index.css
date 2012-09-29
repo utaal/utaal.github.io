@@ -132,13 +132,15 @@ span.comment {
 /*   font-size: 0.8em; */
 /* } */
 .github-activity,
-.twitter-activity {
+.twitter-activity,
+.stackoverflow-activity {
   margin-top: 15px;
   display: none;
 }
 
 .github-activity li,
-.twitter-activity li {
+.twitter-activity li,
+.stackoverflow-activity li {
   font-size: 0.8em;
   line-height: 1em;
   padding: 5px 0px 5px 22px;
@@ -146,6 +148,7 @@ span.comment {
   background-position: left center;
 }
 
-.github-activity .date {
+.github-activity .date,
+.stackoverflow-activity .date {
   font-size: 0.78em;
 }
