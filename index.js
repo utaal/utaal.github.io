@@ -136,6 +136,10 @@ var template = {
   + '<%=status.repo.name%>/issues/<%=status.payload.issue.number%>">'
   + '<%=status.payload.issue.number%></a> on <a href="http://github.com/'
   + '<%=status.repo.name%>"><%=status.repo.name%></a>',
+  pullRequestReviewCommentEvent: 'commented on pull request <a href="'
+  + '<%=status.payload.comment._links.html.href%>">'
+  + '<%=status.pull_request_number%></a> on <a href="http://github.com/'
+  + '<%=status.repo.name%>"><%=status.repo.name%></a>',
   issuesEvent: '<%=status.payload.action%> issue '
   + '<a href="http://github.com/<%=status.repo.name%>/issues/'
   + '<%=status.payload.issue.number%>"><%=status.payload.issue.number%></a> '
@@ -207,6 +211,10 @@ var parseGithubStatus = function( status ) {
   }
   else if (status.type === 'WatchEvent' ) {
     return tmpl( template.watchEvent, {status: status} );
+  }
+  else if (status.type === 'PullRequestReviewCommentEvent') {
+    status.pull_request_number = /[0-9]+$/.exec(status.payload.comment.pull_request_url)[0];
+    return tmpl( template.pullRequestReviewCommentEvent, {status: status} );
   }
 }
 
