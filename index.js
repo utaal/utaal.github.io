@@ -34,76 +34,14 @@
   };
 })();
 
-var WAIT_FOR = 3;
+var WAIT_FOR = 2;
 var notifyCompleted = function(id) {
   --WAIT_FOR;
   if (WAIT_FOR == 0) {
-    $twitterActivity.slideDown();
     $githubActivity.slideDown();
     $stackoverflowActivity.slideDown();
   }
 }
-
-// Twitter
-var linkify = function( tweet ) {
-  var link = function( t ) {
-    return t.replace(
-      /[a-z]+:\/\/[a-z0-9-_]+\.[a-z0-9-_:~%&\?\/.=]+[^:\.,\)\s*$]/ig,
-      function( m ) {
-        return '<a href="' + m + '">'
-          + ( ( m.length > 25 ) ? m.substr( 0, 24 ) + '...' : m )
-          + '</a>';
-      }
-    );
-  },
-  at = function( t ) {
-    return t.replace(
-      /(^|[^\w]+)\@([a-zA-Z0-9_]{1,15})/g,
-      function( m, m1, m2 ) {
-        return m1 + '<a href="http://twitter.com/' + m2 + '">@'
-          + m2 + '</a>';
-      }
-    );
-  },
-  hash = function( t ) {
-    return t.replace(
-      /(^|[^\w'"]+)\#([a-zA-Z0-9_]+)/g,
-      function( m, m1, m2 ) {
-        return m1 + '<a href="http://search.twitter.com/search?q=%23'
-        + m2 + '">#' + m2 + '</a>';
-      }
-    );
-  };
-
-  return hash(at(link(tweet)));
-}
-
-var $twitterActivity = $(".twitter-activity");
-
-var parseTwitter = function(data) {
-//  var data = data.slice(0, 5);
-  var $ul = $("<ul>");
-  $twitterActivity.append($ul);
-  data.map(function (status) {
-    var $li = $("<li>", { 'class': 'twitter-bgicon' });
-    $li.html(linkify(status.text));
-    $ul.append($li);
-    //   date: new Date(status.created_at),
-  });
-  notifyCompleted('.twitter-activity');
-};
-
-$.ajax({
-  url: "https://api.twitter.com/1/statuses/user_timeline.json",
-  data: {
-    screen_name: "utaal",
-    include_rts: 1, // Include retweets
-    exclude_replies: true,
-    count: 3
-  },
-  dataType: 'jsonp',
-  success: parseTwitter 
-});
 
 // GitHub
 var template = {

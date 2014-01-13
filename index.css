@@ -48,6 +48,9 @@ p:first-child {
 div.relative {
   position: relative;
 }
+.card-name {
+  margin-top: 40px;
+}
 div.attribution {
   font-size: 0.75em;
   border-bottom: none;
