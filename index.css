@@ -93,6 +93,10 @@ div.profiles a.github {
   background-image: url('blacktocat.png');
 }
 
+div.main.activity {
+  display: none;
+}
+
 div.main > h3 {
   margin-top: 20px;
 }
@@ -103,10 +107,6 @@ div.main > h3:first-child {
 
 div.resume-year {
   font-weight: bold;
-}
-
-div.projects > p {
-  margin-top: 8px;
 }
 
 li {
@@ -129,16 +129,9 @@ span.comment {
   font-size: 80%;
 }
 
-/* div.blog-preview { */
-/*   margin-top: 10px; */
-/*   text-align: justify; */
-/*   font-size: 0.8em; */
-/* } */
-.github-activity,
 .twitter-activity,
 .stackoverflow-activity {
   margin-top: 15px;
-  display: none;
 }
 
 .github-activity li,

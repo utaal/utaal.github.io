@@ -38,8 +38,7 @@ var WAIT_FOR = 2;
 var notifyCompleted = function(id) {
   --WAIT_FOR;
   if (WAIT_FOR == 0) {
-    $githubActivity.slideDown();
-    $stackoverflowActivity.slideDown();
+    $mainActivity.slideDown();
   }
 }
 
@@ -156,6 +155,7 @@ var parseGithubStatus = function( status ) {
   }
 }
 
+var $mainActivity = $(".main.activity");
 var $githubActivity = $(".github-activity");
 
 var dateTemplate = '<span class="date">' +
@@ -195,8 +195,7 @@ var parseStackoverflowItem = function( item ) {
   question_link = "http://stackoverflow.com/questions/";
 
   if(item.timeline_type === "badge") {
-    text = "was " + item.action + " the '" + item.description + "' badge";
-    title = item.detail;
+    text = "was awarded the '" + item.detail + "' badge";
     link = stackoverflow_link + "?tab=reputation";
   }
   else if (item.timeline_type === "comment") {
@@ -225,7 +224,7 @@ convertDate = function( date ) {
 var showStackoverflow = function(result) {
   var $ul = $("<ul>");
   $stackoverflowActivity.append($ul);
-  result.user_timelines.map(function (status) {
+  result.items.map(function (status) {
     var $li = $("<li>", { 'class': 'stackoverflow-bgicon' });
     var created_at = moment.unix(status.creation_date);
     var date = tmpl(dateTemplate, {created_at: created_at});
@@ -237,9 +236,8 @@ var showStackoverflow = function(result) {
 }
 
 $.ajax({
-  url: "http://api.stackoverflow.com/1.1/users/" + "123984"
-         + "/timeline?"
-         + "jsonp",
+  url: "https://api.stackexchange.com/2.2/users/" + "123984" +
+         "/timeline?site=stackoverflow",
   data: {
     pagesize: 2
   },
