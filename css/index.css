@@ -8,6 +8,9 @@ body {
 a {
   text-decoration: none;
 }
+a:hover {
+  text-decoration: underline;
+}
 h1#title {
   display: none;
   margin-top: 20px;
@@ -86,6 +89,10 @@ div.profiles a.twitter {
 }
 div.profiles a.github {
   background-image: url('../assets/blacktocat.png');
+}
+
+ul.blog > li.post > div.title {
+  font-weight: bold;
 }
 
 div.main.activity {
