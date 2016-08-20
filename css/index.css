@@ -81,16 +81,11 @@ div.profiles a {
   height: 50px;
   width: 50px;
 }
-@media screen and (min-width: 461px) {
-  div.profiles a {
-    border: solid 1px #999;
-  }
-}
 div.profiles a.twitter {
-  background-image: url('twitter.png');
+  background-image: url('../assets/twitter.png');
 }
 div.profiles a.github {
-  background-image: url('blacktocat.png');
+  background-image: url('../assets/blacktocat.png');
 }
 
 div.main.activity {
@@ -121,7 +116,7 @@ ul.resume > li:first-child {
   margin-top: 0px;
 }
 
-span.resume-location {
+.resume-location {
   font-style: italic;
 }
 
