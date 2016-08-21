@@ -4,8 +4,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Andrea Lattuada</title>
+    <title>Andrea Lattuada - @utaal</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/profiles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript">
@@ -22,14 +25,13 @@
   </head>
   <body>
     <div class="main relative card">
-      <div class="profiles">
-        <a class="twitter" href="http://twitter.com/utaal">@utaal</a>
-        <a class="github" href="http://github.com/utaal">github.com/utaal</a>
-      </div>
-      <p class="card-name">Andrea Lattuada</p>
+      <p class="card-name">Andrea Lattuada<br/>
+      @utaal <a href="https://twitter.com/utaal" class="profile twitter-bgicon">@utaal</a> <a href="https://github.com/utaal" class="profile github-bgicon">@utaal</a> 
+      </p>
       <p>software engineer</p>
       <p>passionate about distributed systems &amp; programming language design</p>
     </div>
+    {% if site.posts.size > 0 %}
     <div class="main">
       <ul class="blog">
         {% for post in site.posts %}    
@@ -40,6 +42,7 @@
         {% endfor %}
       </ul>
     </div>
+    {% endif %}
     <div class="main activity">
       <div class="github-activity">
       </div>
@@ -111,7 +114,9 @@
         (<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>)
         by <a href="https://github.com/christianv">Christian Vuerings</a><br/>
         and <a href="http://ejohn.org/blog/javascript-micro-templating/">Simple JavaScript Templating</a> (MIT licensed) by
-        <a href="http://ejohn.org/">John Resig</a>
+        <a href="http://ejohn.org/">John Resig</a><br/>
+        <br/>
+        <div>icons made by <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> licensed <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
       </p>
     </div>
     <link rel="stylesheet" type="text/css" href="assets/serviceicons.css" />
