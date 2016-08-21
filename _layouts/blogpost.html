@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ page.title }} - @utaal</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blogpost.css" />
+    <link rel="stylesheet" type="text/css" href="/css/profiles.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/serviceicons.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30551292-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <div class="leftbar">
+        <div class="me box">
+          <p><a href="/">Andrea Lattuada</a></p>
+          <p>@utaal
+          <a href="https://twitter.com/utaal" class="profile twitter-bgicon">@utaal</a>
+          <a href="https://github.com/utaal" class="profile github-bgicon">@utaal</a></p>
+
+        </div>
+      </div>
+      <div class="main">
+        {{ content }}
+      </div>
+    </div>
+    <div class="bottom">
+      <div>icons made by <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> licensed <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </div>
+  </body>
+</html>
