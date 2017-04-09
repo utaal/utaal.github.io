@@ -4,50 +4,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Andrea Lattuada - @utaal</title>
+    <meta charset="UTF-8" />
+    <title>Andrea Lattuada</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/base.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/profiles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-30551292-1']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
   </head>
   <body>
+    <div class="main relative card header">
+      <img src="assets/systems.png" alt="Systems @ ETH" />
+      <p class="card-name">Andrea Lattuada <span class="email">(<a href="http://www.google.com/recaptcha/mailhide/d?k=01f0mKNqdOfUjYpjqXkwR1Tw==&amp;c=X9m4NjcGaUGdZbaNHwA7vgZSBb6wXeLxPqtwGEKnSxI=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\x3d01f0mKNqdOfUjYpjqXkwR1Tw\x3d\x3d\x26c\x3dX9m4NjcGaUGdZbaNHwA7vgZSBb6wXeLxPqtwGEKnSxI\x3d', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">a...</a>@inf.ethz.ch)</span><br/></p>
+      <p>I'm a PhD Student in the Systems Group, Department of Computer Science at ETH Zürich. My advisor is Prof. <a target="_blank" href="https://people.inf.ethz.ch/troscoe/">Timothy Roscoe</a>.</p>
+    </div>
     <div class="main relative card">
-      <p class="card-name">Andrea Lattuada<br/>
-      @utaal <a href="https://twitter.com/utaal" class="profile twitter-bgicon">@utaal</a> <a href="https://github.com/utaal" class="profile github-bgicon">@utaal</a> 
+      <p class="text">My interests span various areas of systems and programming methodology. I am currently focusing on applications of the dataflow computational model, flow control mechanisms, distributed tracing, and language-supported enforcement of complex programming contracts.
       </p>
-      <p>PhD Student, Software Engineer</p>
-      <p>Systems researcher &amp; programming language design enthusiast</p>
     </div>
-    <!--
-    <div class="main relative card">
-      I am available for consulting work in scala and rust, get in touch at <a href="http://www.google.com/recaptcha/mailhide/d?k=01pxGVAFhkKvx_6r_aKbAxcw==&amp;c=qcBNfBddV0rodLyT9A4dTrrUr3EzEhMLKSZLZGmA0oQ=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\x3d01pxGVAFhkKvx_6r_aKbAxcw\x3d\x3d\x26c\x3dqcBNfBddV0rodLyT9A4dTrrUr3EzEhMLKSZLZGmA0oQ\x3d', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">c...</a>@lattuada.me
-    </div>
-    -->
-    {% if site.posts.size > 0 %}
-    <div class="main">
-      <ul class="blog">
-        {% for post in site.posts %}    
-          <li class="post">
-            <div class="title"><a href="{{ post.url }}">{{ post.title }}</a></div>
-            <div>{{ post.date | date: "%B %e, %Y" }}</div>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
     <div class="main">
       <ul class="resume">
         <li>
@@ -57,99 +32,6 @@
         </li>
       </ul>
     </div>
-    <div class="main activity">
-      <div class="github-activity">
-      </div>
-      <div class="stackoverflow-activity">
-      </div>
-    </div>
-    <div class="main">
-      <ul class="resume">
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">2017 - present</div>
-          </div>
-          <div>PhD Student</div>
-          <div class="resume-location"><a href="https://www.systems.ethz.ch" target="_blank">Systems Group</a>, ETH Zürich, Switzerland</div>
-        </li>
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">2013 - 2016</div>
-          </div>
-          <div>Founder, Software Engineer, Ops</div>
-          <div class="resume-location"><a href="http://buildo.io" target="_blank">buildo</a>, Milano, Italy</div>
-        </li>
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">August 2013 - November 2013</div>
-          </div>
-          <div>Production Engineering Intern - Cache</div>
-          <div class="resume-location">Facebook, Menlo Park, CA</div>
-        </li>
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">2013 - 2016</div>
-          </div>
-          <div>MSc in Computer Science (Distributed Systems track)
-          </div>
-          <div class="resume-location">ETH, Zurich</div>
-        </li>
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">Sep 2012 - Nov 2012</div>
-          </div>
-          <div>Software Engineering Intern
-          </div>
-          <div class="resume-location">10gen (the MongoDB company), New York, NY</div>
-        </li>
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">2008 - 2012</div>
-          </div>
-          <div>BSc in Computer Engineering
-          </div>
-          <div class="resume-location">Politecnico di Milano, Italy</div>
-        </li>
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">Oct 2010 - Jan 2011</div>
-          </div>
-          <div>Site Reliability Engineering Intern
-            <div class="resume-location">Google Zurich, Switzerland
-          </div>
-        </li>
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">2009 - 2013</div>
-          </div>
-          <div>Freelance developer
-            <div class="resume-location">Milano area, Italy
-          </div>
-        </li>
-        <li>
-          <div class="resume-year-cont">
-            <div class="resume-year">2008 - 2010</div>
-          </div>
-          <div>R&D Collaborator - .NET Developer,
-            <div class="resume-location">Omnilab S.r.l., Milano, Italy
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="main attribution">
-      <p>this page's <a href="index.js">script file</a>
-        includes customized code fragments extracted from
-        <a href="http://christianv.github.com/jquery-lifestream/">jQuery Lifestream</a>
-        (<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>)
-        by <a href="https://github.com/christianv">Christian Vuerings</a><br/>
-        and <a href="http://ejohn.org/blog/javascript-micro-templating/">Simple JavaScript Templating</a> (MIT licensed) by
-        <a href="http://ejohn.org/">John Resig</a><br/>
-        <br/>
-        <div>icons made by <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> licensed <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-      </p>
-    </div>
-    <link rel="stylesheet" type="text/css" href="assets/serviceicons.css" />
-    <script type="text/javascript" src="js/moment.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+
   </body>
 </html>

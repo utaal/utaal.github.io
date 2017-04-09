@@ -8,13 +8,13 @@ h1#title {
 div.main {
   background-color: white;
   padding: 30px 10px 30px 10px;
-  color: #555;
+  color: #222;
   border-bottom: 1px solid #999;
 }
 @media screen and (min-width: 461px) {
   div.main {
     margin: 0px auto;
-    width: 400px;
+    width: 600px;
   }
 }
 @media handheld, only screen and (max-width: 460px), only screen and (max-device-width: 460px) 
@@ -31,6 +31,9 @@ p {
   padding: 0px;
   margin: 5px 0px 0px 0px;
 }
+span.email {
+  color: #555;
+}
 p:first-child {
   margin-top: 0px;
   
@@ -38,8 +41,20 @@ p:first-child {
 div.relative {
   position: relative;
 }
+.header > img {
+  float: right;
+  width: 180px;
+  padding: 18px;
+  margin-top: -20px;
+}
 .card-name {
   margin-top: 40px;
+}
+p.text {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 div.attribution {
   font-size: 0.75em;
