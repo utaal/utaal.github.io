@@ -11,21 +11,33 @@ div.main {
   color: #222;
   border-bottom: 1px solid #999;
 }
-@media screen and (min-width: 461px) {
+span.name-span {
+  font-weight: bold;
+}
+@media screen and (min-width: 660px) {
   div.main {
     margin: 0px auto;
     width: 600px;
   }
 }
-@media handheld, only screen and (max-width: 460px), only screen and (max-device-width: 460px) 
-{
+@media screen and (max-width: 660px) {
   div.main {
     margin-left: 20px;
     margin-right: 20px;
   }
 }
-div.main:first-child {
+@media screen and (max-width: 1100px)
+{
+  img.systemslogo {
+    display: none;
+  }
+}
+div.main.topcard {
+  margin-top: 20px;
   border-top: 1px solid #999;
+}
+div.main:last-child {
+  margin-bottom: 40px;
 }
 p {
   padding: 0px;
@@ -41,14 +53,30 @@ p:first-child {
 div.relative {
   position: relative;
 }
-.header > img {
+img.systemslogo {
+  position: absolute;
+  width: 150px;
+  margin: 30px;
+  top: 20px;
+  left: 20px;
+
+}
+.card.header > img {
   float: right;
-  width: 180px;
-  padding: 18px;
-  margin-top: -20px;
+  height: 160px;
+  padding-left: 20px;
+  margin-right: -10px;
+  margin-top: -30px;
+}
+@media screen and (max-width: 660px) {
+  .main.header > img {
+    padding: 0;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    float: none;
+  }
 }
 .card-name {
-  margin-top: 40px;
 }
 p.text {
   text-align: justify;
@@ -71,11 +99,13 @@ div.main.activity {
 
 div.main > h3 {
   margin-top: 20px;
+  padding-bottom: 10px;
 }
 
 div.main > h3:first-child {
   margin-top: 0px;
 }
+
 
 .resume-year {
   font-weight: bold;
