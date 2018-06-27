@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ page.title }} - Andrea Lattuada</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Serif+Pro:400,700" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/post.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+  </head>
+  <body>
+    {% include header.html %}
+    <div class="container">
+      <div class="main">
+        <h1>{{ page.title }}</h1>
+        {{ page.date | date_to_long_string }}
+      </div>
+      <div class="main content">
+        {{ content }}
+      </div>
+      {% if page.author %}
+      <div class="main author">
+        Written by {{ page.author }}
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

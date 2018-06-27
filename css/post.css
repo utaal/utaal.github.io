@@ -1,0 +1,27 @@
+div.container {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+div.content p {
+  font-family: 'Source Serif Pro', serif;
+  font-size: 13pt;
+}
+div.content h2 {
+  margin-top: 18pt;
+  margin-bottom: 12pt;
+}
+div.content h3,
+div.content h4 {
+  margin-top: 12pt;
+  margin-bottom: 8pt;
+}
+div.content p {
+  margin: 5px 0px 0px 0px;
+  text-align: justify;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+div.author {
+  text-align: center;
+}

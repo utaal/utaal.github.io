@@ -1,3 +1,7 @@
+div.container {
+  display: flex;
+  align-items: flex-start;
+}
 h1#title {
   display: none;
   margin-top: 20px;
@@ -5,42 +9,47 @@ h1#title {
   color: white;
   text-align: center;
 }
-div.main {
-  background-color: white;
-  padding: 30px 10px 30px 10px;
-  color: #222;
-  border-bottom: 1px solid #999;
-}
 span.name-span {
   font-weight: bold;
 }
-@media screen and (min-width: 660px) {
-  div.main {
-    margin: 0px auto;
-    width: 600px;
+@media screen and (min-width: 1290px) {
+  div.hero > div.main {
+    width: 500px;
   }
 }
-@media screen and (max-width: 660px) {
-  div.main {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-}
-@media screen and (max-width: 1100px)
-{
+@media screen and (max-width: 1290px) {
   img.systemslogo {
     display: none;
   }
 }
-div.main.topcard {
-  margin-top: 20px;
-  border-top: 1px solid #999;
+@media screen and (max-width: 1290px) and (min-width: 800px) {
+  div.hero {
+    margin-left: 30px;
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+  div.posts {
+    flex-basis: 0;
+  }
 }
-div.main:last-child {
-  margin-bottom: 40px;
+@media screen and (max-width: 800px) {
+  div.container {
+    flex-direction: column;
+  }
+  div.hero, div.posts {
+    margin-left: 30px;
+    margin-right: 30px;
+    align-self: stretch;
+    max-width: none;
+  }
 }
-div.main.highlight {
-  background-color: #d0d0ff;
+@media screen and (max-width: 660px) {
+  .main.header > img {
+    padding: 0;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    float: none;
+  }
 }
 p {
   padding: 0px;
@@ -57,8 +66,9 @@ div.relative {
   position: relative;
 }
 img.systemslogo {
-  position: absolute;
+  /* position: absolute; */
   width: 150px;
+  /* height: 150px; */
   margin: 30px;
   top: 20px;
   left: 20px;
@@ -66,18 +76,10 @@ img.systemslogo {
 }
 .card.header > img {
   float: right;
-  height: 160px;
+  height: 180px;
   padding-left: 20px;
   margin-right: -10px;
   margin-top: -30px;
-}
-@media screen and (max-width: 660px) {
-  .main.header > img {
-    padding: 0;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    float: none;
-  }
 }
 .card-name {
 }
