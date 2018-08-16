@@ -2,9 +2,16 @@ div.container {
   margin-left: 30px;
   margin-right: 30px;
 }
-div.content p {
+div.content p, div.content ul, div.content ol {
   font-family: 'Source Serif Pro', serif;
   font-size: 13pt;
+}
+div.content ul, div.content ol {
+  margin-left: 20pt;
+}
+div.content img {
+  padding-top: 10pt;
+  padding-bottom: 10pt;
 }
 div.content h2 {
   margin-top: 18pt;
