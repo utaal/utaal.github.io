@@ -290,29 +290,35 @@ Great! We can now only use each letter once!
 ## Enforce order
 ![letter duplicate]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/envelope-order.svg %}) 
 
-Now we'd like to make sure that the steps of the protocol are carried out in the proper order: we must not forget to put the letter in the envelope before handing it to the lorry driver!
+Now we'd like to make sure that the steps of the protocol are carried out in the proper order: we must not forget to put the letter in the envelope before handing it to the lorry driver! And, can we prevent inserting two letters in the same envelope at compile time?
+
+Here's broken client code:
 
 {: #figure-reuse-envelope }
 {% highlight rust linenos %}
 fn main() {
     let rustfest_letter = Letter::new(String::from("Dear RustFest"));
-
-    let envelope = buy_prestamped_envelope();
-    let closed_envelope = envelope.wrap(rustfest_letter);
+    let mut first_envelope = buy_prestamped_envelope();
+    first_envelope.wrap(rustfest_letter);
 
     let eth_letter = Letter::new(String::from("Dear ETH"));
-    let closed_envelope = envelope.wrap(eth_letter);
+    first_envelope.wrap(eth_letter);
 
     let mut lorry = order_pickup();
-    lorry.pickup(closed_envelope);
+    lorry.pickup(&first_envelope);
+
+    let another_envelope = buy_prestamped_envelope();
+    lorry.pickup(&another_envelope);
+
     lorry.done();
 }
 {% endhighlight %}
 
 <style type="text/css">
-#figure-reuse-envelope pre span:nth-child(n+52):nth-child(-n+65) {
-  color: #aaa;
-  font-weight: regular;
+#figure-reuse-envelope pre span:nth-child(n+24):nth-child(-n+24),
+#figure-reuse-envelope pre span:nth-child(n+42):nth-child(-n+42),
+#figure-reuse-envelope pre span:nth-child(n+68):nth-child(-n+68) {
+  background: rgba(150,150,250,0.5);
 }
 </style>
 
@@ -332,12 +338,16 @@ impl Envelope {
 }
 </style>
 
-Assert!
+This compiles, but of course the assert in `wrap` will fire, at runtime.
 
 <pre class="highlight">
 thread 'main' panicked at 'assertion failed: self.letter.is_none()'
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 </pre>
+
+We'd like to prevent this at compile time. And once that's fixed, what about making sure we don't send empty envelopes (`another_envelope` on lines 12-13 of `main`)?
+
+We can make a copule classes to represent in which state the `Envelope` is in: `EmptyEnvelope` is an empty pre-stampted envelope, and `ClosedEnvelope` is a closed envelope guaranteed to contain a letter. We can then only provide implementations for actions that make sense for that specific state. Then, to make sure we don't send an empty envelope, we make sure that `pickup` only takes a `ClosedEnvelope` (and we make it take ownership, to avoid spurious copies).
 
 {: #figure-order-structs }
 {% highlight rust linenos %}
@@ -374,36 +384,65 @@ pub fn buy_prestamped_envelope() -> EmptyEnvelope { EmptyEnvelope { } }
 }
 </style>
 
+And here's the updated client code:
+
+{: #figure-no-send-empty }
 {% highlight rust linenos %}
 fn main() {
     let rustfest_letter = Letter::new(String::from("Dear RustFest"));
-
-    let envelope = buy_prestamped_envelope();
-    envelope.wrap(rustfest_letter);
+    let mut first_envelope = buy_prestamped_envelope();
+    first_envelope.wrap(rustfest_letter);
 
     let eth_letter = Letter::new(String::from("Dear ETH"));
-    envelope.wrap(eth_letter);
+    first_envelope.wrap(eth_letter);
 
     let mut lorry = order_pickup();
-    lorry.pickup(envelope);
+    lorry.pickup(first_envelope);
+
+    let another_envelope = buy_prestamped_envelope();
+    lorry.pickup(another_envelope);
+
     lorry.done();
 }
 {% endhighlight %}
 
+<style type="text/css">
+#figure-no-send-empty pre span:nth-child(n+56):nth-child(-n+56),
+#figure-no-send-empty pre span:nth-child(n+66):nth-child(-n+66) {
+  background: rgba(255,230,0,0.5);
+}
+#figure-no-send-empty pre span:nth-child(n+5):nth-child(-n+46),
+#figure-no-send-empty pre span:nth-child(n+68):nth-child(-n+70) {
+  color: #aaa;
+  font-weight: regular;
+}
+</style>
+
 <pre class="highlight">
 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error[E0308]</span><span style="font-weight:bold;">: mismatched types</span>
-  <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--&gt; </span>letter2.rs:66:18
+  <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--&gt; </span>letter2.rs:10:18
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
-<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">66</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>    lorry.pickup(envelope);
-   <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>                 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">^^^^^^^^</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">expected struct `ClosedEnvelope`, found struct `EmptyEnvelope`</span>
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">10</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>    lorry.pickup(first_envelope);
+   <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>                 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">^^^^^^^^^^^^^^</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">expected struct `ClosedEnvelope`, found struct `EmptyEnvelope`</span>
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">= </span><span style="font-weight:bold;">note</span>: expected type `<span style="font-weight:bold;">ClosedEnvelope</span>`
               found type `<span style="font-weight:bold;">EmptyEnvelope</span>`
 
-<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error</span><span style="font-weight:bold;">: aborting due to previous error</span>
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error[E0308]</span><span style="font-weight:bold;">: mismatched types</span>
+  <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--&gt; </span>letter2.rs:13:18
+   <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">13</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>    lorry.pickup(another_envelope);
+   <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>                 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">^^^^^^^^^^^^^^^^</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">expected struct `ClosedEnvelope`, found struct `EmptyEnvelope`</span>
+   <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
+   <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">= </span><span style="font-weight:bold;">note</span>: expected type `<span style="font-weight:bold;">ClosedEnvelope</span>`
+              found type `<span style="font-weight:bold;">EmptyEnvelope</span>`
+
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error</span><span style="font-weight:bold;">: aborting due to 2 previous errors</span>
 
 <span style="font-weight:bold;">For more information about this error, try `rustc --explain E0308`.</span>
 </pre>
+
+One problem prevented: no empty envelopes can be sent! Note how the compiler errors point us towards a solution: we need a `ClosedEnvelope` for the `lorry` to `pickup`. Let's fix the client code again.
 
 {: #figure-no-reuse-envelope }
 {% highlight rust linenos %}
@@ -427,7 +466,7 @@ fn main() {
 #figure-no-reuse-envelope pre span:nth-child(n+45):nth-child(-n+45) {
   background: rgba(150,150,250,0.5);
 }
-#figure-no-reuse-envelope pre span:nth-child(n+52):nth-child(-n+65) {
+#figure-no-reuse-envelope pre span:nth-child(n+63):nth-child(-n+65) {
   color: #aaa;
   font-weight: regular;
 }
@@ -435,12 +474,12 @@ fn main() {
 
 <pre class="highlight">
 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error[E0382]</span><span style="font-weight:bold;">: use of moved value: `envelope`</span>
-  <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--&gt; </span>letter2.rs:51:27
+  <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--&gt; </span>letter2.rs:8:27
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
-<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">48</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>    let closed_envelope = envelope.wrap(rustfest_letter);
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;"> 5</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>    let closed_envelope = envelope.wrap(rustfest_letter);
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>                          <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--------</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">value moved here</span>
 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">...</span>
-<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">51</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>    let closed_envelope = envelope.wrap(eth_letter);
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;"> 8</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>    let closed_envelope = envelope.wrap(eth_letter);
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>                          <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">^^^^^^^^</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">value used here after move</span>
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">= </span><span style="font-weight:bold;">note</span>: move occurs because `envelope` has type `EmptyEnvelope`, which does not implement the `Copy` trait
@@ -450,9 +489,43 @@ fn main() {
 <span style="font-weight:bold;">For more information about this error, try `rustc --explain E0382`.</span>
 </pre>
 
+By making `EmptyEnvelope` take `self`'s ownership we can use the _linear typing_ technique from earlier to prevent reuse of `envelope`: once we've put a letter in an envelope, we get back a `ClosedEnvelope`, that can only be handed over to the `lorry` driver. Now the compiler can help us make sure we follow the protocol steps in order: put the letter in the envelope, then send it.
+
+We'll see a more complex example in which we compose an http response in the right order using this technique. For now, here's the correct client code with the new API:
+
+{% highlight rust linenos %}
+fn main() {
+    let rustfest_letter = Letter::new(String::from("Dear RustFest"));
+    let mut envelope = buy_prestamped_envelope();
+    let closed_envelope = envelope.wrap(rustfest_letter);
+
+    let mut lorry = order_pickup();
+    lorry.pickup(closed_envelope);
+    lorry.done();
+}
+{% endhighlight %}
+
 ## Ensure a resource is released
 
 ![lorry question]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/lorry-questionmark.svg %}) 
+
+Another common mistake: forgetting to release a resource. In the following client code, `lorry.done()` is missing, and we never tell the delivery driver we're done. And, in this tortured methaphor, we'd never deliver the letter because the driver never leaves...
+
+{: #figure-missing-done }
+{% highlight rust linenos %}
+fn main() {
+    let rustfest_letter = Letter::new(String::from("Dear RustFest"));
+    let mut envelope = buy_prestamped_envelope();
+    let closed_envelope = envelope.wrap(rustfest_letter);
+
+    let mut lorry = order_pickup();
+    lorry.pickup(closed_envelope);
+}
+{% endhighlight %}
+
+In the real world, we may keeping a connection open, or never completing a process in our business logic; and it's just because we forgot a single line.
+
+We've seen that we can hook into Rust's _drop_ mechanism; here's how we'd ensure that we release the `lorry`:
 
 {% highlight rust linenos %}
 impl Drop for PickupLorryHandle {
@@ -488,6 +561,56 @@ fn main() {
 }
 {% endhighlight %}
 
+Now when the lorry goes out of scope the `drop` implementation is called, and we automatically send the driver on their merry way.
+
+## In the `std` library
+
+This last pattern is often used in the `std` library when building abstractions where there's a need to release a resource or an handle to a resource.
+
+`Rc`, "a single-threaded reference-counting pointer", tracks the number of references to a resource, and the ownership of the `Rc` pointer represents a strong reference: when no references are left (all `Rc`s are dropped), the underlying resource (memory and other elements of the `struct`) should be freed.
+
+There's some `unsafe` trickery under the hood, but what's relevant here is that `Rc` uses `Drop` to release the underlying memory once the reference-count reaches zero.
+
+Here's the relevant code: [https://doc.rust-lang.org/src/alloc/rc.rs.html#802-847](`std::rc::Rc`).
+
+{% highlight rust %}
+unsafe impl<#[may_dangle] T: ?Sized> Drop for Rc<T> {
+    // ...
+    fn drop(&mut self) {
+        unsafe {
+            self.dec_strong();
+            if self.strong() == 0 {
+                // destroy the contained object
+                ptr::drop_in_place(self.ptr.as_mut());
+                // ...
+            }
+        }
+    }
+}
+{% endhighlight %}
+
+Locking a `Mutex`, "a mutual exclusion primitive useful for protecting shared data", returns a `MutexGuard`, "an RAII implementation of a scoped lock of a mutex", that is, an object that represents the fact that we're holding the lock. And `Drop` is used so we can release the lock just by `drop`ping the guard (either explicitly, with [`std::mem::drop`](https://doc.rust-lang.org/std/mem/fn.drop.html), or when it goes out of scope).
+
+This is the signature of `Mutex::lock`:
+
+`pub fn lock(&self) -> LockResult<MutexGuard<T>>`
+
+And here's the `Drop` implementation for `MutexGuard`:
+[https://doc.rust-lang.org/src/std/sync/mutex.rs.html#452-460](`std::sync::MutexGuard`).
+
+{% highlight rust %}
+#[stable(feature = "rust1", since = "1.0.0")]
+impl<'a, T: ?Sized> Drop for MutexGuard<'a, T> {
+    #[inline]
+    fn drop(&mut self) {
+        unsafe {
+            self.__lock.poison.done(&self.__poison);
+            self.__lock.inner.raw_unlock();
+        }
+    }
+}
+{% endhighlight %}
+
 <style type="text/css">
 #figure-ensure-drop pre span:nth-child(n+42):nth-child(-n+42) {
   display: inline-block;
@@ -497,11 +620,12 @@ fn main() {
 }
 </style>
 
-## Limitations
-
-Correct order: Large number of states ⇢many structs
 
 ## Example: http response
+
+Now let's look at an example of how all of these techniques can be combined in a realistic API. Let's say we're building an http server library, and we want to make sure that when we write our response we first send all the headers, and only then start writing the body. We may also want to make sure not to forget to flush the buffer at the end. 
+
+We use two structs to represent the two states: `HttpResponseWritingHeader`, and `HttpResponseWritingBody`. The method `body` on `HttpResponseWritingHeader` takes ownership of `self`, ensuring that the header writer can no longer be used after this call (its ownership is transfered), and only body chunks can be appended to the response. 
 
 {% highlight rust linenos %}
 pub struct HttpResponseWritingHeaders { /* connection, … */ }
@@ -522,11 +646,30 @@ impl HttpResponseWritingBody {
     fn cease(self) { }
 }
 
-impl Drop for HttpResponseWritingBody { /* ... */ }
+impl Drop for HttpResponseWritingBody {
+    fn drop(&mut self) {
+        self.flush();
+    }
+}
 {% endhighlight %}
 
+The `Drop` implementation ensures that a completed response is always fully written out to the client.
+
+## State explosion
+
+Note that the technique of representing the state of a protocol/object with many structs has a significant drawback when the possible state space grows large: we may end up juggling a lot of structs, and the benefit of compile time checks may not be worth the cost in lines-of-code, and maintainability.
+
 ## Example: streaming engine
+
+This last example is a short appetiser for a future blog post. At the [Systems Group](https://www.systems.ethz.ch) of the [ETH Zürich CS department](https://www.inf.ethz.ch), we're working on [timely dataflow](https://github.com/frankmcsherry/timely-dataflow), a low-latency cyclic dataflow computational model: it lets you describe computations as a cyclic graph of nodes (operators), that perform some transformation on incoming data and maintain local state, and edges (channels) that carry data between operators. A computation built this way can be automatically parallelised across cores and computers, over the network.
+
+In timely dataflow, data is transported on channels as tuples, each carrying a logical timestamp.
+
 ![lorry-time]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/lorry-time.svg %}) 
+
+Timestamps are used to represent logical boundaries between groups of tuples so that operations can be performed on some subset, and timely dataflow tracks which timestamps are in flight in the system. Importantly, for timely dataflow's correctness, operators are only allowed to send messages with timestamp `t` when they hold a `Capability` for the same timestamp `t`. In addition, they need to report whenever they relinquish one of these capabilities, so that the system can make forward progress.
+
+In timely, we use something like the following to represent a `Capability` a resource which grants permission to send data at a certain timestamp.
 
 {% highlight rust linenos %}
 /// The capability to send data with a certain timestamp on a dataflow edge.
@@ -547,5 +690,10 @@ impl<T: Timestamp> Drop for Capability<T> {
     }
 }
 
+/// Return a channel handle to send data at the timestamp carried by `cap`.
 pub fn session(&mut self, cap: &Capability<T>) -> Handle
 {% endhighlight %}
+
+`Capability` has a custom `Clone` implementation, that keeps track of how many copies we've made (a bit like `Rc`), and a `Drop` implementation, so we can be sure that a `Capability` is dropped if not explicitly retained. The function that an operator uses to write to its output requires a reference to a valid `Capabliity` for a certain timestamp: this way we enforce, at compile time, one of the protocol constraints of timely dataflow.
+
+In the next post we'll take a deeper look at the systems aspects of capabilities in timely.
