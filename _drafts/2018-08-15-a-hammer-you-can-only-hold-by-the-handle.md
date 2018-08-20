@@ -4,7 +4,13 @@ author: Andrea Lattuada (<a href="https://twitter.com/utaal">@utaal</a>)
 title: A hammer you can only hold by the handle
 ---
 
-Today we're looking at the rust borrow checker from a different perspective.
+Today we're looking at the rust borrow checker from a different perspective. As you may know, the borrow checker is designed to safely handle memory allocation and ownership, preventing accessess to invalid memory and ensuring data-race freedom. This is a form of resource management: the borrow checker is tracking who's in charge of a chunk of memory, and who is currently allowed to read or write to it.
+
+We'll see how this facilities can be used to enforce higher-level API constraints in your libraries and software: the same principles apply to memory management and other more abstract resources.
+
+## Affine type systems
+
+First, a refresher on [_affine types_](https://en.wikipedia.org/wiki/Substructural_type_system). Affine type systems, like Rust's, only allow a variable to be used once (if it's not a reference). This is at the core of the ownership semantics, and it's a significant departure from other mainstream languages (think of using a variable multiple times in C). Here's an example:
 
 {% highlight rust linenos %}
 fn use_name(name: String) { }
@@ -17,7 +23,7 @@ fn main() {
 }
 {% endhighlight %}
 
-Compiler output:
+Note that `use_name` takes `name`'s ownership (and it's not pass-by-reference) so `name` is moved on line 5, and it cannot be used again on line 7. Here's the compiler output:
 
 <pre class="highlight">
 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error[E0382]</span><span style="font-weight:bold;">: use of moved value: `name`</span>
@@ -36,28 +42,81 @@ Compiler output:
 <span style="font-weight:bold;">For more information about this error, try `rustc --explain E0382`.</span>
 </pre>
 
-Using drop:
+If you'd like a more in-depth explanation on _ownership_ (Rust's lingo for its affine type system), you can take a look at the [relevant chapter](https://doc.rust-lang.org/book/second-edition/ch04-01-what-is-ownership.html) in the Rust book.
+
+## Drop
+
+Now we know what happens if we try to give up ownership of a variable more than once, but what if we never use it inside a scope?
+
+First of all, Rust is lexically scoped, so variable names are only valid within the scope where they're defined.
 
 {% highlight rust linenos %}
+struct Thing {
+    number: u32,
+}
+
 fn main() {
-  let a = get_number(); 
+    let a = 4;
 
-  if a > 3 {
-    let data = vec![3, 4, 8];
-  } // `data` dropped here
+    if a > 3 {
+        let thing = Thing { number: a };
+    } // `thing` dropped here
 
-  println!("{}", data);
+    println!("{}", thing);
 }
 {% endhighlight %}
 
+<pre class="highlight">
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error[E0425]</span><span style="font-weight:bold;">: cannot find value `thing` in this scope</span>
+  <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--&gt; </span>drop.rs:12:18
+   <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">12</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>  println!(&quot;{}&quot;, thing);
+   <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>                 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">^^^^^</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">not found in this scope</span>
+
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error</span><span style="font-weight:bold;">: aborting due to previous error</span>
+
+<span style="font-weight:bold;">For more information about this error, try `rustc --explain E0425`.</span>
+</pre>
+
+No `thing` there, it went out of scope on line 10. Importantly, `thing` goes out of scope before its ownership was transfered, so Rust _drops_ it: the compiler inserts code to clean up all resources associated with `thing` and frees its memory. We can hook into this mechanism by providing an implementation of the special `Drop` trait:
+
+{% highlight rust linenos %}
+impl Drop for Thing {
+    fn drop(&mut self) {
+        eprintln!("dropping thing {}", self.number);
+    }
+}
+
+fn main() {
+    let a = 4;
+
+    if a > 3 {
+        let thing = Thing { number: a };
+        eprintln!("inside scope");
+    } // `thing` dropped here
+    eprintln!("outside scope");
+}
+{% endhighlight %}
+
+If we run this we get:
+
+<pre class="highlight">
+inside scope
+dropping thing 4
+outside scope
+</pre>
+
+Again, more details are in [the book](https://doc.rust-lang.org/book/second-edition/ch15-03-drop.html).
+
 ## Managing resources
 
-We're going to try to encode higher level API constraints using the linear typing (ownership) semantics of Rust.
+We're going to try to encode higher level API constraints using the _linear typing_ (_ownership_) semantics of Rust.
 
-![envelope, letter, lorry](/assets/posts/a-hammer-you-can-only-hold-by-the-handle/envelope-letter-lorry.svg) 
+![envelope, letter, lorry]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/envelope-letter-lorry.svg %})
 
-The interaction we're describing is pretty simple: sending a letter via a delivery service. One has a written letter they'd like to send, they put it in a pre-stamped envelope, they close the envelope and they hand it to the lorry driver. Here's a one way to model these entities in Rust:
+The interaction we're going to describe is pretty simple: sending a letter via a delivery service. One has a written letter they'd like to send: they put it in a pre-stamped envelope, they close the envelope and they hand it to the lorry driver. Of course, all of this applies to many APIs: we'll see a couple of examples at the end.
 
+Here's a way to model our protocol in Rust:
 
 {% highlight rust linenos %}
 #[derive(Clone)]
@@ -122,19 +181,21 @@ Our client code:
 
 ## 1, 2, 3
 
-Our API has three issues we can solve with Rust's linear types:
+Our API has three shortcomings we can better address with Rust's type system:
 
-1. Preventing re-use of a finite resource (we only have one physical copy of the letter);<br/>
-![letter duplicate](/assets/posts/a-hammer-you-can-only-hold-by-the-handle/letter-duplicate.svg) 
+1. we'd like to prevent re-use of what we know it's a finite resource: we only have one physical copy of the letter;<br/>
+![letter duplicate]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/letter-duplicate.svg %}) 
 
-2. making sure that we do a series of steps in the right order (and only once): put the letter in the envelope, seal it, and give it to the driver (i.e. avoid giving an empty envelope);<br/>
-![letter duplicate](/assets/posts/a-hammer-you-can-only-hold-by-the-handle/envelope-order.svg) 
+2. we want to make sure that we perform a series of steps in the right order (and only once): put the letter in the envelope, seal it, and give it to the driver (i.e. avoid giving an empty envelope);<br/>
+![letter, envelope, lorry]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/envelope-order.svg %}) 
 
-3. make sure we don't forget to tell the driver we're done (release resource).<br/>
-![lorry question](/assets/posts/a-hammer-you-can-only-hold-by-the-handle/lorry-questionmark.svg) 
+3. we don't want to forget to release a resouce when we're done: we ensure we tell the driver they can leave.<br/>
+![lorry question]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/lorry-questionmark.svg %}) 
 
-## Use once
-![letter duplicate](/assets/posts/a-hammer-you-can-only-hold-by-the-handle/letter-duplicate.svg) 
+## Use a resource only once
+![letter duplicate]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/letter-duplicate.svg %}) 
+
+Here's some problematic client code:
 
 {% highlight rust linenos %}
 fn main() {
@@ -150,6 +211,10 @@ fn main() {
 }
 {% endhighlight %}
 
+No compiler error, but somehow the letter was magically duplicated and inserted in both envelopes. Sometimes, this is perfectly fine (copying some memory isn't a big deal), but sometimes the resource represented by our `struct` cannot be easily duplicated: in this example, if it's representing a constraint in our business logic. In general, if our `struct` represents an handle to a resource out of our control, we may not be able to `clone` it without breaking some safety or correctness guarantees.
+
+So let's remove the `Clone` implementation for `Letter`, and adjust the client code:
+
 {: #figure-nonclone-letter }
 {% highlight rust linenos %}
 {{a}}#[derive(Clone)]
@@ -158,9 +223,24 @@ pub struct Letter {
 }
 
 impl Envelope {
-    pub fn wrap(&mut self, letter: Letter) {
+    pub fn wrap(&mut self, letter: Letter) { // take ownership of `letter`
         self.letter = Some(letter);
     }
+}
+{% endhighlight %}
+
+{: #figure-nonclone-letter-main }
+{% highlight rust linenos %}
+fn main() {
+    let rustfest_letter = Letter::new(String::from("Dear RustFest"));
+    let mut envelopes = vec![
+        buy_prestamped_envelope(), buy_prestamped_envelope()];
+    let mut lorry = order_pickup();
+    for e in envelopes.iter_mut() {
+        e.wrap(rustfest_letter); // give ownership of `rustfest_letter`
+        lorry.pickup(&e);
+    }
+    lorry.done();
 }
 {% endhighlight %}
 
@@ -173,13 +253,29 @@ impl Envelope {
 #figure-nonclone-letter pre span:nth-child(n+29):nth-child(-n+29) {
   background: rgba(255,230,0,0.5);
 }
+
+#figure-nonclone-letter-main pre span:nth-child(n+44):nth-child(-n+44) {
+  background: rgba(255,230,0,0.5);
+}
+
+#figure-nonclone-letter-main pre span:nth-child(-n+33) {
+  color: #aaa;
+  font-weight: regular;
+}
+
+#figure-nonclone-letter-main pre span:nth-child(n+54) {
+  color: #aaa;
+  font-weight: regular;
+}
 </style>
+
+Here's the compiler output:
 
 <pre class="highlight">
 <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">error[E0382]</span><span style="font-weight:bold;">: use of moved value: `rustfest_letter`</span>
-  <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--&gt; </span>letter1.rs:47:16
+  <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">--&gt; </span>letter1.rs:7:16
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
-<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">47</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>        e.wrap(rustfest_letter);
+<span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;"> 7</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>        e.wrap(rustfest_letter);
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">| </span>               <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">^^^^^^^^^^^^^^^</span> <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">value moved here in previous iteration of loop</span>
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">|</span>
    <span style="font-weight:bold;"></span><span style="color:blue;font-weight:bold;text-decoration:blink;">= </span><span style="font-weight:bold;">note</span>: move occurs because `rustfest_letter` has type `Letter`, which does not implement the `Copy` trait
@@ -189,8 +285,12 @@ impl Envelope {
 <span style="font-weight:bold;">For more information about this error, try `rustc --explain E0382`.</span>
 </pre>
 
+Great! We can now only use each letter once!
+
 ## Enforce order
-![letter duplicate](/assets/posts/a-hammer-you-can-only-hold-by-the-handle/envelope-order.svg) 
+![letter duplicate]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/envelope-order.svg %}) 
+
+Now we'd like to make sure that the steps of the protocol are carried out in the proper order: we must not forget to put the letter in the envelope before handing it to the lorry driver!
 
 {: #figure-reuse-envelope }
 {% highlight rust linenos %}
@@ -352,6 +452,8 @@ fn main() {
 
 ## Ensure a resource is released
 
+![lorry question]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/lorry-questionmark.svg %}) 
+
 {% highlight rust linenos %}
 impl Drop for PickupLorryHandle {
     fn drop(&mut self) {
@@ -424,7 +526,7 @@ impl Drop for HttpResponseWritingBody { /* ... */ }
 {% endhighlight %}
 
 ## Example: streaming engine
-![lorry-time](/assets/posts/a-hammer-you-can-only-hold-by-the-handle/lorry-time.svg) 
+![lorry-time]({{ site.baseurl }}{% link assets/posts/a-hammer-you-can-only-hold-by-the-handle/lorry-time.svg %}) 
 
 {% highlight rust linenos %}
 /// The capability to send data with a certain timestamp on a dataflow edge.

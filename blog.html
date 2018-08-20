@@ -7,8 +7,8 @@
     <meta charset="UTF-8" />
     <title>Andrea Lattuada</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href={{ "/css/base.css" | relative_url }} />
-    <link rel="stylesheet" type="text/css" href={{ "/css/index.css" | relative_url }} />
+    <link rel="stylesheet" type="text/css" href={{ site.baseurl }}{% link css/base.css %} />
+    <link rel="stylesheet" type="text/css" href={{ site.baseurl }}{% link css/index.css %} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <style>
@@ -34,10 +34,10 @@
       <div class="posts">
         {% for post in site.posts %}
         <div class="main relative card header">
-          <a href={{ post.url }}><h2>{{ post.title }}</h2></a>
+          <a href={{ post.url | prepend:site.baseurl }}><h2>{{ post.title }}</h2></a>
           {{ post.date | date_to_long_string }}
           <p>{{ post.excerpt }}</p>
-          <a href={{ post.url }}>Continue reading</a>
+          <a href={{ post.url | prepend:site.baseurl }}>Continue reading</a>
         </div>
         {% endfor %}
       </div>
