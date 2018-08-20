@@ -1,6 +1,6 @@
 ---
 layout: post
-author: Andrea Lattuada
+author: Andrea Lattuada (<a href="https://twitter.com/utaal">@utaal</a>)
 title: A hammer you can only hold by the handle
 ---
 
@@ -371,4 +371,79 @@ impl PickupLorryHandle {
 }
 {% endhighlight %}
 
+{: #figure-ensure-drop }
+{% highlight rust linenos %}
+fn main() {
+    let rustfest_letter = Letter::new(String::from("Dear RustFest"));
 
+    let envelope = buy_prestamped_envelope();
+    let closed_envelope = envelope.wrap(rustfest_letter);
+
+    let mut lorry = order_pickup();
+    lorry.pickup(closed_envelope);
+
+    // `lorry` dropped here
+}
+{% endhighlight %}
+
+<style type="text/css">
+#figure-ensure-drop pre span:nth-child(n+42):nth-child(-n+42) {
+  display: inline-block;
+  background: rgba(150,150,250,0.5);
+  color: #666;
+  padding: 4px 8px 4px 4px;
+}
+</style>
+
+## Limitations
+
+Correct order: Large number of states ⇢many structs
+
+## Example: http response
+
+{% highlight rust linenos %}
+pub struct HttpResponseWritingHeaders { /* connection, … */ }
+
+pub struct HttpResponseWritingBody { /* ... */ }
+
+pub fn start_response() -> HttpResponseWritingHeaders { /* ... */ }
+
+impl HttpResponseWritingHeaders {
+    fn header(&mut self, header: Header) { /* ... */ }
+
+    fn body(self) -> HttpResponseWritingBody { /* ... */ }
+}
+
+impl HttpResponseWritingBody {
+    fn write(&mut self, chunk: Chunk) { /* ... */ }
+
+    fn cease(self) { }
+}
+
+impl Drop for HttpResponseWritingBody { /* ... */ }
+{% endhighlight %}
+
+## Example: streaming engine
+![lorry-time](/assets/posts/a-hammer-you-can-only-hold-by-the-handle/lorry-time.svg) 
+
+{% highlight rust linenos %}
+/// The capability to send data with a certain timestamp on a dataflow edge.
+pub struct Capability<T: Timestamp> {
+    time: T,
+    internal: Rc<RefCell<ChangeBatch<T>>>,
+}
+
+impl<T: Timestamp> Clone for Capability<T> {
+    fn clone(&self) -> Capability<T> {
+        // … update self.internal …
+    }
+}
+
+impl<T: Timestamp> Drop for Capability<T> {
+    fn drop(&mut self) {
+        // … update self.internal …
+    }
+}
+
+pub fn session(&mut self, cap: &Capability<T>) -> Handle
+{% endhighlight %}
