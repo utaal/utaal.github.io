@@ -38,7 +38,7 @@
         <div class="main relative card">
           <ul class="resume">
             <li>
-              <div class="resume-year">June 2018 (to appear)</div>
+              <div class="resume-year">June 2018</div>
               <div>[Workshop] <a class="paper-title" href="https://wiki.antiguru.de/lib/exe/fetch.php/pub/hoffmann_beyondmr18.pdf">Latency-conscious dataflow reconfiguration</a>, M. Hoffmann, F. McSherry, A. Lattuada</div>
               <div class="resume-location">Proceedings of the 5th ACM SIGMOD Workshop on Algorithms and Systems for MapReduce and Beyond (BeyondMR'18)</div>
             </li>
@@ -113,10 +113,21 @@
       <div class="posts">
         {% for post in site.posts %}
         <div class="main relative card header">
-          <a href={{ post.url | prepend:site.baseurl }}><h2>{{ post.title }}</h2></a>
-          {{ post.date | date_to_long_string }}
-          <p>{{ post.excerpt }}</p>
-          <a href={{ post.url | prepend:site.baseurl }}>Continue reading</a>
+          {% if post.link == null %}
+            <a href={{ post.url | prepend:site.baseurl }}><h2>{{ post.title }}</h2></a>
+            {{ post.date | date_to_long_string }}
+            <div class="text excerpt">
+            {{ post.excerpt }}
+            </div>
+            <a href={{ post.url | prepend:site.baseurl }}>Continue reading</a>
+          {% else %}
+            <a href={{ post.link }}><h2>{{ post.title }}</h2></a>
+            {{ post.date | date_to_long_string }}
+            <div class="text excerpt">
+            {{ post.excerpt }}
+            </div>
+            <a href={{ post.link }}>{{ post.action }}</a>
+          {% endif %}
         </div>
         {% endfor %}
       </div>

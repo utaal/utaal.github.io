@@ -83,11 +83,15 @@ img.systemslogo {
 }
 .card-name {
 }
-p.text {
+p.text, .text > p {
   text-align: justify;
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
+}
+.excerpt {
+  margin-top: 6pt;
+  margin-bottom: 6pt;
 }
 div.attribution {
   font-size: 0.75em;
