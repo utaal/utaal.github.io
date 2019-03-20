@@ -17,13 +17,17 @@
       }
       @media screen and (min-width: 800px) {
         div.container div.posts {
-          margin-left: auto;
+          margin-left: 60px;
           margin-right: auto;
         }
         div.base_header {
-          max-width: 500px;
-          margin-left: auto;
+          max-width: 580px;
+          margin-left: 60px;
           margin-right: auto;
+          padding-left: 10px;
+        }
+        div.posts {
+          max-width: 600px;
         }
       }
     </style>
@@ -36,7 +40,7 @@
         <div class="main relative card header">
           <a href={{ post.url | prepend:site.baseurl }}><h2>{{ post.title }}</h2></a>
           {{ post.date | date_to_long_string }}
-          <p>{{ post.excerpt }}</p>
+          <p class="excerpt">{{ post.excerpt }}</p>
           <a href={{ post.url | prepend:site.baseurl }}>Continue reading</a>
         </div>
         {% endfor %}

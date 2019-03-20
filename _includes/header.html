@@ -1,4 +1,8 @@
 <div class="base_header">
-  <a href={{ "/blog" | relative_url }}>Blog</a>
+  {% if page.url != '/' %}
   <a href={{ "/" | relative_url }}>Andrea Lattuada</a>
+  {% else %}
+  <div></div>
+  {% endif %}
+  <a href={{ "/blog" | relative_url }}>Blog</a>
 </div>
