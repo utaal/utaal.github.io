@@ -10,7 +10,7 @@ This is the story of how [James Munns](https://twitter.com/bitshiftmask) and I d
 
 <br/>
 
-_This post is cross-posted on Ferrous Systems' [blog](https://ferrous-systems.com/blog/lock-free-ring-buffer/)._
+_This post is cross-posted on Ferrous Systems' [blog](https://ferrous-systems.com/blog/lock-free-ring-buffer/) and on the ETH Zürich [Systems Group blog](https://blog.systems.ethz.ch/blog/2019/the-design-and-implementation-of-a-lock-free-ring-buffer-with-contiguous-reservations.html)._
 
 <br/>
 
