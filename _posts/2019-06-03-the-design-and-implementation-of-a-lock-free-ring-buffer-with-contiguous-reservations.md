@@ -10,7 +10,7 @@ This is the story of how [James Munns](https://twitter.com/bitshiftmask) and I d
 
 <br/>
 
-_This post is cross-posted on James' [blog](https://jamesmunns.com/blog/)._
+_This post is cross-posted on Ferrous Systems' [blog](https://ferrous-systems.com/blog/)._
 
 <br/>
 
