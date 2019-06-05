@@ -157,7 +157,7 @@ struct ContiguousAsyncBuffer {
 }
 ```
 
-We use `AtomicUsize` to let the two threads read and update the pointers concurrently and safely. The writer/sender thread is in charge of `write` and `watermark`, the reader/receiver is in charge of `read`. This is important! Contended writes from multiple threads on the same memory location are a lot harder for the CPU's cache coherence protocol to handle, and will cost latency and throughput. 
+We use `AtomicUsize` to let the two threads read and update the pointers concurrently and safely. The writer/sender thread is in charge of `write` and `watermark`, the reader/receiver is in charge of `read`. This is important! Contended writes from multiple threads on the same memory location are a lot harder for the CPU's cache coherence protocol to handle, and will cost latency and throughput.[^2]
 What's more, it's a lot easier to reason about correctness of these concurrent protocols if each of the shared pointers are always written by a certain thread (their "owner").
 
 ### Writing
@@ -213,3 +213,5 @@ In Andrea's implementation of the lock-free ring-buffer, [spsc-bip-buffer](https
 In James' implementation of the lock-free ring-buffer, [bbqueue](https://github.com/jamesmunns/bbqueue), convenience interfaces are provided for statically allocating instances of the ring-buffer. The queue can be split into Producer and Consumer halves, allowing for use of one half in interrupt context, and the other half in non-interrupt (or a different interrupt) context.
 
 [^1]: Thanks to Ralf for pointing out that it's not _just_ about the hardware. [https://www.reddit.com/r/rust/comments/bwr2yg/the_design_and_implementation_of_a_lockfree/eq1zcbk/](https://www.reddit.com/r/rust/comments/bwr2yg/the_design_and_implementation_of_a_lockfree/eq1zcbk/)
+
+[^2]: It may be important to cache-align these memory locations and make sure there's only one per cache line to avoid [false sharing](https://en.wikipedia.org/wiki/False_sharing). [spsc-bip-buffer](https://github.com/utaal/spsc-bip-buffer) uses `cache_line_size::CacheAligned`: [https://github.com/utaal/spsc-bip-buffer/blob/master/src/lib.rs#L8-L10](https://github.com/utaal/spsc-bip-buffer/blob/master/src/lib.rs#L8-L10).
