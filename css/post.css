@@ -82,3 +82,13 @@ div.base_header {
     padding-right: 10px;
   }
 }
+
+div.footnotes::before {
+  content: "Footnotes"
+}
+div.footnotes {
+  margin-top: 3em;
+}
+div.footnotes ol, div.footnotes p {
+  font-size: 11pt;
+}

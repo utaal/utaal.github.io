@@ -202,7 +202,7 @@ This makes the reader thread's logic simple: read till you hit the `write` point
 Some of you may have noticed that all of our calls to `load` don't take arguments and our calls to `store` take a single argument, the new value for the `AtomicBool`. This isn't valid code, of course. The real signatures take another argument: `ordering: Ordering`.
 This instructs llvm on how to emit the proper memory fences and `sync` instructions to drive the cache coherence and synchronization mechanisms built into the CPUs.
 
-The safe thing to do here is to always choose `Ordering::SeqCst`, "sequential consistency", which provides the strongest guarantees. On x86, due to the hardware design, anything other than `Ordering::Relaxed` is equivalent to `SeqCst`. On ARMv7/v8, things get more complicated.
+The safe thing to do here is to always choose `Ordering::SeqCst`, "sequential consistency", which provides the strongest guarantees. At the hardware level, on x86, due to the hardware design, anything other than `Ordering::Relaxed` is equivalent to `SeqCst`. On ARMv7/v8, things get more complicated. The compiler can also make use of this information for reordering when running optimization passes.[^1]
 
 We recommend reading up on [`Ordering`](https://doc.rust-lang.org/std/sync/atomic/enum.Ordering.html) both in the rust doc and in the documentation for your platform. For the purpose of this post, just assume we used `Ordering::SeqCst` everywhere. This is often good enough in practice, and switching to a weaker `Ordering` is only necessary to squeeze out the last bit of performance.
 
@@ -211,3 +211,5 @@ In Andrea's implementation of the lock-free ring-buffer, [spsc-bip-buffer](https
 ### Support for embedded systems
 
 In James' implementation of the lock-free ring-buffer, [bbqueue](https://github.com/jamesmunns/bbqueue), convenience interfaces are provided for statically allocating instances of the ring-buffer. The queue can be split into Producer and Consumer halves, allowing for use of one half in interrupt context, and the other half in non-interrupt (or a different interrupt) context.
+
+[^1]: Thanks to Ralf for pointing out that it's not _just_ about the hardware. [https://www.reddit.com/r/rust/comments/bwr2yg/the_design_and_implementation_of_a_lockfree/eq1zcbk/](https://www.reddit.com/r/rust/comments/bwr2yg/the_design_and_implementation_of_a_lockfree/eq1zcbk/)
