@@ -1,0 +1,147 @@
+<html>
+<head>
+    <title>Thesis Progress</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <meta name="robots" content="noindex">
+</head>
+<body>
+  <center>
+    <div id="figure"></div>
+  </center>
+  <style>
+    body {
+      font-size: 10em;
+    }
+  </style>
+  <script type="text/javascript">
+  const data = [
+    { ch: "1", name: "Introduction", end: 10, perc: 90, sta: "refine" },
+    { ch: "2", name: "Dataflow model", end: 28, perc: 80, sta: "wip" },
+    { ch: "3", name: "Time-aware dataflow", end: 36, perc: 50, sta: "wip" },
+    // { ch: "4", name: "Related work", end: 38, perc: 10, sta: "wip" },
+    { ch: "5", name: "Timestamp tokens", end: 66, perc: 70, sta: "wip" },
+    { ch: "6", name: "Shared arrangments", end: 114, perc: 90, sta: "wip" },
+    { ch: "7", name: "Fault tolerance", end: 120, perc: 10, sta: "wip" },
+    { ch: "10", name: "Verified progress tracking", end: 131, perc: 30, sta: "wip" },
+  ];
+
+  const x = d => d.perc; // given d in data, returns the (quantitative) x-value
+  const marginTop = 60; // the top margin, in pixels
+  const marginRight = 30; // the right margin, in pixels
+  const marginBottom = 10; // the bottom margin, in pixels
+  const marginLeft = 60; // the left margin, in pixels
+  const width = 640; // the outer width of the chart, in pixels
+  const xType = d3.scaleLinear; // type of x-scale
+  const xRange = [marginLeft, width - marginRight]; // [left, right]
+  const xFormat = "%"; // a format specifier string for the x-axis
+  const xLabel = "Status"; // a label for the x-axis
+  const yPadding = 0.1; // amount of y-range to reserve to separate bars
+  // const yDomain = d3.groupSort(alphabet, ([d]) => -d.frequency, d => d.letter); // an array of (ordinal) y-values
+  // const color = "currentColor"; // bar fill color
+  const titleColor = "white"; // title fill color when atop bar
+  const titleAltColor = "currentColor"; // title fill color when atop background
+
+  const X = d3.map(data, x);
+  const Ystart = d3.map(data, (d, i) => i == 0 ? 0 : data[i-1].end);
+  const Yend = d3.map(data, (d, i) => d.end);
+
+  // Compute default domains, and unique the y-domain.
+  const xDomain = [0, 100];
+  const yDomain = [0, d3.max(Yend)];
+  // yDomain = new d3.InternSet(yDomain);
+
+  // Omit any data not present in the y-domain.
+  const I = d3.range(X.length); // .filter(i => yDomain.has(Y[i]));
+
+  // Compute the default height.
+  const height = 600 + marginTop + marginBottom;
+  const yRange = [marginTop, height - marginBottom];
+
+  // Construct scales and axes.
+  const xScale = xType(xDomain, xRange);
+  const yScale = d3.scaleLinear(yDomain, yRange); // d3.scaleBand(yDomain, yRange).padding(yPadding);
+  const xAxis = d3.axisTop(xScale);
+  const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
+
+  // Compute titles.
+  const formatValue = xScale.tickFormat(100, "");
+  const title = i => `${data[i].name}`;
+
+  const chColor = (sta) => ({
+      "done": "#5f5",
+      "refine": "#88f",
+      "wip": "#bbb",
+  }[sta]);
+
+  const svg = d3.create("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", [0, 0, width, height])
+      .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+  svg.append("g")
+      .attr("transform", `translate(0,${marginTop})`)
+      .call(xAxis)
+      .call(g => g.select(".domain").remove())
+      .call(g => g.selectAll(".tick line").clone()
+          .attr("y2", height - marginTop - marginBottom)
+          .attr("stroke-opacity", 0.1))
+      .call(g => g.selectAll("text").attr("font-size", "20px"))
+      .call(g => g.append("text")
+          .attr("x", width - marginRight)
+          .attr("y", -32)
+          .attr("fill", "currentColor")
+          .attr("text-anchor", "end")
+          .attr("font-size", "20px")
+          .text("%"));
+
+  svg.append("g")
+    .attr("stroke", "black")
+    .selectAll("rect")
+    .data(I)
+    .join("rect")
+      .attr("x", xScale(0))
+      .attr("y", i => yScale(Ystart[i]) + 5)
+      .attr("width", i => xScale(100) - xScale(0))
+      .attr("height", i => yScale(Yend[i]) - yScale(Ystart[i]) - 10)
+      .attr("fill", "none")
+      .attr("stroke", "black"); // TODO yScale.bandwidth());
+
+  svg.append("g")
+    .attr("stroke", "black")
+    .selectAll("rect")
+    .data(I)
+    .join("rect")
+      .attr("x", xScale(0))
+      .attr("y", i => yScale(Ystart[i]) + 5)
+      .attr("width", i => xScale(X[i]) - xScale(0))
+      .attr("height", i => yScale(Yend[i]) - yScale(Ystart[i]) - 10)
+      .attr("fill", i => chColor(data[i].sta));
+
+  svg.append("g")
+      .attr("fill", titleColor)
+      // .attr("text-anchor", "end")
+      .attr("font-family", "times")
+      .attr("font-size", 30)
+    .selectAll("text")
+    .data(I)
+    .join("text")
+      .attr("x", i => xScale(5))
+      .attr("y", i => (yScale(Yend[i]) + yScale(Ystart[i])) / 2)
+      .attr("dy", "0.35em")
+      // .attr("dx", -4)
+      .text(title)
+      .call(text => text //.filter(i => xScale(X[i]) - xScale(0) < 20) // short bars
+          .attr("dx", +4)
+          .attr("fill", titleAltColor)
+          .attr("text-anchor", "start"));
+
+  svg.append("g")
+      .attr("transform", `translate(${marginLeft-10},0)`)
+      .call(yAxis)
+      .call(g => g.selectAll("text").attr("font-size", "20px"));
+
+          d3.select("#figure").append(() => svg.node());
+  // return svg.node();
+  </script>
+</html>
