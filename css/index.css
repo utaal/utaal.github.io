@@ -118,7 +118,6 @@ div.main > h3.small-h3 {
 }
 
 .resume-year {
-  font-weight: bold;
 }
 
 li {
@@ -142,6 +141,7 @@ span.comment {
 }
 
 .paper-title {
+  font-weight: bold;
 }
 
 .twitter-activity,
