@@ -13,7 +13,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   </head>
   <body>
-    {% include header.html %}
+    <div class="base_header">
+      <div></div>
+      <a class="blog_link" href={{ "/blog" | relative_url }}>Blog</a>
+    </div>
     <div class="container">
       <div class="hero">
         <div class="main relative card header">
@@ -164,7 +167,7 @@ I also have been working on techniques for re-scaling and fault-tolerance for st
           </style>
         </div>
         <div class="main relative card">
-          <h3>Activity as a reviewer</h3>
+          <h3>Peer-review service</h3>
           <ul class="resume">
             <li>
               <div class="resume-year">2021</div>
@@ -211,7 +214,6 @@ I also have been working on techniques for re-scaling and fault-tolerance for st
             </li>
           </ul>
         </div>
-        -->
         <div class="main relative card">
           <h3>Teaching assistant</h3>
           <ul class="resume">
@@ -237,7 +239,9 @@ I also have been working on techniques for re-scaling and fault-tolerance for st
             </li>
           </ul>
         </div>
+        -->
       </div>
+      <!--
       <div class="posts">
         {% for post in site.posts %}
         <div class="main relative card header">
@@ -259,6 +263,7 @@ I also have been working on techniques for re-scaling and fault-tolerance for st
         </div>
         {% endfor %}
       </div>
+      -->
     </div>
 
   </body>

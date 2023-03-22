@@ -1,5 +1,5 @@
-div.base_header {
-  max-width: 1030px;
+a.blog_link {
+  float: right;
 }
 div.container {
   display: flex;
@@ -7,6 +7,7 @@ div.container {
 }
 div.hero {
   margin-left: 30px;
+  margin-right: 30px;
 }
 h1#title {
   display: none;
@@ -18,25 +19,15 @@ h1#title {
 span.name-span {
   font-weight: bold;
 }
-@media screen and (min-width: 1290px) {
+@media screen and (min-width: 880px) {
   div.hero > div.main {
-    width: 500px;
+    width: 800px;
   }
-}
-@media screen and (max-width: 1290px) and (min-width: 800px) {
   div.base_header {
-    max-width: inherit;
-  }
-  div.hero {
-    margin-left: 30px;
-    flex-basis: 0;
-    flex-grow: 1;
-  }
-  div.posts {
-    flex-basis: 0;
+    width: 800px;
   }
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 879px) {
   div.container {
     flex-direction: column;
   }
@@ -45,6 +36,8 @@ span.name-span {
     margin-right: 30px;
     align-self: stretch;
     max-width: none;
+  }
+  div.base_header {
   }
 }
 @media screen and (max-width: 660px) {
