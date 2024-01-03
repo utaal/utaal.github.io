@@ -15,94 +15,122 @@
   <body>
     <div class="base_header">
       <div></div>
-      <a class="blog_link" href={{ "/blog" | relative_url }}>Blog</a>
+      <a class="blog_link" href={{ "/blog" | relative_url }}>Words</a>
     </div>
     <div class="container">
       <div class="hero">
         <div class="main relative card header">
           <img src="assets/small-profile-pic.jpg" alt="Andrea Lattuada" />
           <p class="card-name"><span class="name-span">Andrea Lattuada</span> <span class="email">(<a href="mailto:andrea@lattuada.me">andrea@lattuada.me</a>)</span><br/></p>
+          <div style="height:30px"></div>
           <p>I am a Researcher in the <a href="https://research.vmware.com">VMware Research Group</a>.</p>
-          <p>I obtained my PhD in the <a href="https://www.systems.ethz.ch">Systems Group</a>, Department of Computer Science at <a href="https://www.ethz.ch/en.html">ETH Zürich</a>, advised by Prof. <a target="_blank" href="https://people.inf.ethz.ch/troscoe/">Timothy Roscoe</a>.</p>
+          <p>I got my PhD in the <a href="https://www.systems.ethz.ch">Systems Group</a> at <a href="https://www.ethz.ch/en.html">ETH Zürich</a>, advised by Prof. <a target="_blank" href="https://people.inf.ethz.ch/troscoe/">Timothy Roscoe</a>.</p>
         </div>
         <div class="main relative card">
           <p class="text">
-          I am developing <a href="https://github.com/verus-lang/verus">Verus</a>: a semi-automatic verification tool for the Rust programming language. I am part of a collaborative effort to dramatically lower the costs associated with verifying software systems with the goal of improving their reliability and security.
+          <b>I co-lead the development of <a href="https://github.com/verus-lang/verus">Verus</a></b>: a semi-automatic verification tool for the Rust programming language as part of a multi-institution, collaborative effort to dramatically lower the costs associated with verifying software systems with the goal of improving their reliability and security. The Verus project involves members from VMware Research, Microsoft Research, Carnegie Mellon University, ETH Zurich, University of Washington, University of Michigan, University of Wisconsin-Madison, and others. We are verifying complex, concurrent systems programs in Verus, and researchers at the University of Utah are using Verus to write and verify a full-featured microkernel.
           </p>
 
-          <p>
-I also have been working on techniques for re-scaling and fault-tolerance for streaming data processing system, and on new dataflow-inspired programming models for Serverless systems, with a strong focus on efficiency. 
+          <p class="text">I have worked on techniques for efficient re-scaling and fault-tolerance for streaming data processing system, and I am working on new <b>dataflow-inspired programming model for Serverless systems</b> as part of a collaboration with ETH Zurich.
+          </p>
+
+          <p class="text">With folks at VMware Research and ETH Zurich I am exploring how to specify and verify an Operating System with the goal of providing a <b>useful, verified interface to the client applications</b> rather than just focusing on isolation and security properties.
           </p>
         </div>
         <!--<div class="main relative card highlight">
           <h3 class="small-h3">Looking for a thesis topic?</h3>
-          <p>We have several interesting projects and ideas suitable for Bachelor and Master thesis, or lab projects. If you are passionate about systems and want to work on state-of-the-art distributed systems, novel computational models, and fault-tolerance mechanisms, please send me an <a href="mailto:andrea.lattuada@inf.ethz.ch">e-mail.</a></p>
+          <p>We have several interesting projects and ideas suitable for Bachelor and Master thesis, or lab projects. If you are passionate about systems and want to work on state-of-the-art distributed systems, novel computational models, and fault-tolerance mechanisms, please send me an e-mail.</p>
         </div>-->
-        <!--<div class="main relative card">
-          <h3 class="small-h3">Contact info</h3>
-          <p>CAB F 69, ETH Zürich, Universitätstrasse 6, Zürich, Switzerland<br/>
-          Office: +41 44 632 44 95</p>
+        <!-- <div class="main relative card">
+        <p class="text"> 
+        </p>
         </div>-->
         <div class="main relative card">
-          <h3>Publications</h3>
+          <h3>Peer-reviewed Publications</h3>
           <ul class="resume">
             <li>
-              <div class="resume-year">Workshop Paper, June 2023</div>
-              <div><a href="assets/hotos23-beyond-isolation.pdf" class="paper-title">Beyond isolation: OS verification as a foundation for correct applications</a>, Matthias Brun, Reto Achermann, Tej Chajed, Jon Howell, Gerd Zellweger, Andrea Lattuada
-              <div style="display: inline-block" class="resume-location">The 19th Workshop on Hot Topics in Operating Systems (hotOS'23)</div>
+              <div class="resume-year">OOPSLA 2023</div>
+              <div><a href="https://doi.org/10.1145/3586037" class="paper-title">Verus: Verifying Rust Programs using Linear Ghost Types</a>, Andrea Lattuada, Travis Hance, Chanhee Cho, Matthias Brun, Isitha Subasinghe, Yi Zhou, Jon Howell, Bryan Parno, Chris Hawblitzel</div>
+              <div style="display: inline-block" class="resume-location">Proceedings of the ACM on Programming Languages</div>
             </li>
             <li>
-              <div class="resume-year">Conference Paper, October 2023</div>
-              <div><a href="https://doi.org/10.1145/3586037" class="paper-title">Verus: Verifying Rust Programs using Linear Ghost Types</a>, Andrea Lattuada, Travis Hance, Chanhee Cho, Matthias Brun, Isitha Subasinghe, Yi Zhou, Jon Howell, Bryan Parno, Chris Hawblitzel
-              <div style="display: inline-block" class="resume-location">Proceedings of the ACM on Programming Languages (OOPSLA'23)</div>
+              <div class="resume-year">HotOS 2023</div>
+              <div><a href="assets/hotos23-beyond-isolation.pdf" class="paper-title">Beyond isolation: OS verification as a foundation for correct applications</a>, Matthias Brun, Reto Achermann, Tej Chajed, Jon Howell, Gerd Zellweger, Andrea Lattuada</div>
+              <div style="display: inline-block" class="resume-location">The 19th Workshop on Hot Topics in Operating Systems</div>
             </li>
             <li>
-              <div class="resume-year">Conference Paper, 2023</div>
-              <div><a href="https://www.usenix.org/conference/osdi23/presentation/hance" class="paper-title">Sharding the State Machine: Automated Modular Reasoning for Complex Concurrent Systems</a>, Travis Hance, Yi Zhou, Andrea Lattuada, Reto Achermann, Alex Conway, Ryan Stutsman, Gerd Zellweger, Chris Hawblitzel, Jon Howell, Bryan Parno
-              <div style="display: inline-block" class="resume-location">17th USENIX Symposium on Operating Systems Design and Implementation (OSDI'23)</div>
+              <div class="resume-year">OSDI 2023</div>
+              <div><a href="https://www.usenix.org/conference/osdi23/presentation/hance" class="paper-title">Sharding the State Machine: Automated Modular Reasoning for Complex Concurrent Systems</a>, Travis Hance, Yi Zhou, Andrea Lattuada, Reto Achermann, Alex Conway, Ryan Stutsman, Gerd Zellweger, Chris Hawblitzel, Jon Howell, Bryan Parno</div>
+              <div style="display: inline-block" class="resume-location">17th USENIX Symposium on Operating Systems Design and Implementation </div>
             </li>
             <li>
-              <div class="resume-year">Conference Paper, 2022 <span style="font-weight: normal">- Distinguished Paper Award</span></div>
-              <div><a href="https://doi.org/10.1145/3527313" class="paper-title">Linear Types for Large-Scale Systems Verification</a>, Jialin Li, Andrea Lattuada, Yi Zhou, Jonathan Cameron, Jon Howell, Bryan Parno, Chris Hawblitzel
-              <div style="display: inline-block" class="resume-location">Proceedings of the ACM on Programming Languages (OOPSLA'22)</div>
+              <div class="resume-year">OOPSLA 2022 <span style="font-weight: bold">- Distinguished Paper Award</span></div>
+              <div><a href="https://doi.org/10.1145/3527313" class="paper-title">Linear Types for Large-Scale Systems Verification</a>, Jialin Li, Andrea Lattuada, Yi Zhou, Jonathan Cameron, Jon Howell, Bryan Parno, Chris Hawblitzel</div>
+              <div style="display: inline-block" class="resume-location">Proceedings of the ACM on Programming Languages </div>
             </li>
             <li>
-              <div class="resume-year">Conference Paper, June 2021</div>
+              <div class="resume-year">ITP 2021</div>
               <div><a href="https://drops.dagstuhl.de/opus/volltexte/2021/13905/pdf/LIPIcs-ITP-2021-10.pdf" class="paper-title">Verified Progress Tracking for Timely Dataflow</a> [<a href="https://github.com/matthias-brun/progress-tracking-formalization/raw/main/rep.pdf">Technical Report</a>], Matthias Brun, Sára Decova, Andrea Lattuada, Dmitriy Traytel</div>
-              <div style="display: inline-block" class="resume-location">Interactive Theorem Proving (ITP'21)</div>
+              <div style="display: inline-block" class="resume-location">The International Conference on Interactive Theorem Proving</div>
             </li>
             <li>
-              <div class="resume-year">Conference Paper, November 2020</div>
+              <div class="resume-year">OSDI 2020</div>
               <div><a class="paper-title" href="https://www.usenix.org/conference/osdi20/presentation/hance">Storage Systems are Distributed Systems (So Verify Them That Way!)</a>, Travis Hance, Andrea Lattuada, Chris Hawblitzel, Jon Howell, Rob Johnson, Bryan Parno</div>
-              <div style="display: inline-block" class="resume-location">14th USENIX Symposium on Operating Systems Design and Implementation (OSDI'20)</div>
+              <div style="display: inline-block" class="resume-location">14th USENIX Symposium on Operating Systems Design and Implementation</div>
             </li>
             <li>
-              <div class="resume-year">Conference Paper, September 2020</div>
+              <div class="resume-year">VLDB 2020</div>
               <div><a class="paper-title" href="http://www.vldb.org/pvldb/vol13/p1793-mcsherry.pdf">Shared Arrangements: practical inter-query sharing for streaming dataflows</a> [<a class="paper-title" href="https://arxiv.org/abs/1812.02639">Technical report</a>] [<a href="https://youtu.be/MOG_eLoLgeQ">Talk video</a>], Frank McSherry, Andrea Lattuada, Malte Schwarzkopf, Timothy Roscoe</div>
               <div class="resume-location">Proceedings of the VLDB Endowment, Volume 13, No. 10 (VLDB 2020)</div>
             </li>
             <li>
-              <div class="resume-year">Conference Paper, August 2019</div>
+              <div class="resume-year">VLDB 2019</div>
               <div><a class="paper-title" href="http://www.vldb.org/pvldb/vol12/p1002-hoffmann.pdf">Megaphone: Latency-conscious state migration for distributed streaming dataflows</a>, Moritz Hoffmann, Andrea Lattuada, Frank McSherry, Vasiliki Kalavri, John Liagouris, Timothy Roscoe</div>
-              <div class="resume-location">Proceedings of the VLDB Endowment, Volume 12, 2018-2019 (VLDB 2019)</div>
+              <div class="resume-location">Proceedings of the VLDB Endowment, Volume 12, 2018-2019</div>
             </li>
             <li>
-              <div class="resume-year">Workshop Paper, June 2018</div>
+              <div class="resume-year">BeyondMR 2018</div>
               <div><a class="paper-title" href="https://wiki.antiguru.de/lib/exe/fetch.php/pub/hoffmann_beyondmr18.pdf">Latency-conscious dataflow reconfiguration</a>, Moritz Hoffmann, Frank McSherry, Andrea Lattuada</div>
-              <div class="resume-location">Proceedings of the 5th ACM SIGMOD Workshop on Algorithms and Systems for MapReduce and Beyond (BeyondMR'18)</div>
+              <div class="resume-location">Proceedings of the 5th ACM SIGMOD Workshop on Algorithms and Systems for MapReduce and Beyond</div>
             </li>
             <li>
-              <div class="resume-year">Conference Paper, April 2018</div>
+              <div class="resume-year">NSDI 2018</div>
               <div><a class="paper-title" href="https://www.usenix.org/conference/nsdi18/presentation/hoffmann">SnailTrail: Generalizing critical paths for online analysis of distributed dataflows</a> [<a href="https://doi.org/10.3929/ethz-b-000228581">Technical report</a>], Moritz Hoffmann, Andrea Lattuada, John Liagouris, Vasiliki Kalavri, Desislava Dimitrova, Sebastian Wicki, Zaheer Chothia, Timothy Roscoe</div>
-              <div class="resume-location">Proceedings of the 15th USENIX Symposium on Networked Systems Design and Implementation (NSDI'18)</div>
+              <div class="resume-location">Proceedings of the 15th USENIX Symposium on Networked Systems Design and Implementation</div>
             </li>
             <li>
-              <div class="resume-year">Workshop Paper, June 2016</div>
+              <div class="resume-year">BeyondMR 2016</div>
               <div><a href="assets/faucet-beyondmr16.pdf">Faucet: a user-level, modular technique for flow control in dataflow engines</a>, Andrea Lattuada, Frank McSherry, Zaheer Chotia</div>
-              <div class="resume-location">Proceedings of the 3rd ACM SIGMOD Workshop on Algorithms and Systems for MapReduce and Beyond (BeyondMR'16)</div>
+              <div class="resume-location">Proceedings of the 3rd ACM SIGMOD Workshop on Algorithms and Systems for MapReduce and Beyond</div>
             </li>
           </ul>
         </div>
+        <div class="main relative card">
+          <h3>Peer-review Service</h3>
+          <ul class="resume">
+            <li>
+              <div class="resume-year">2023</div>
+              <div><a href="https://popl24.sigplan.org/home/dafny-2024">Dafny 2024</a> − Program Committee</div>
+            </li>
+            <li>
+              <div class="resume-year">2023-2024</div>
+              <div><a href="https://asplos-conference.org">ASPLOS '24</a> − Program Committee</div>
+            </li>
+            <li>
+              <div class="resume-year">2021</div>
+              <div><a href="https://asplos-conference.org">ASPLOS '22</a> − External Review Committee</div>
+            </li>
+            <li>
+              <div class="resume-year">2021</div>
+              <div><a href="https://www.usenix.org/conference/osdi21">OSDI '21</a> − <a href="https://www.usenix.org/conference/osdi21/call-for-artifacts">Artifact Evaluation</a> Committee</div>
+            </li>
+            <li>
+              <div class="resume-year">2018</div>
+              <div><a href="https://www.springer.com/journal/778">VLDB Journal</a> − Reviewer</div>
+            </li>
+          </ul>
+        </div>
+
         <div class="main relative card">
           <input id="posters-toggle" type="checkbox" />
           <label for="posters-toggle"><h3>Posters</h3></label>
@@ -175,31 +203,6 @@ I also have been working on techniques for re-scaling and fault-tolerance for st
               margin-left: .5em;
             }
           </style>
-        </div>
-        <div class="main relative card">
-          <h3>Peer-review service</h3>
-          <ul class="resume">
-            <li>
-              <div class="resume-year">2023</div>
-              <div><a href="https://popl24.sigplan.org/home/dafny-2024">Dafny 2024</a> − Program Committee</div>
-            </li>
-            <li>
-              <div class="resume-year">2023-2024</div>
-              <div><a href="https://asplos-conference.org">ASPLOS '24</a> − Program Committee</div>
-            </li>
-            <li>
-              <div class="resume-year">2021</div>
-              <div><a href="https://asplos-conference.org">ASPLOS '22</a> − External Review Committee</div>
-            </li>
-            <li>
-              <div class="resume-year">2021</div>
-              <div><a href="https://www.usenix.org/conference/osdi21">OSDI '21</a> − <a href="https://www.usenix.org/conference/osdi21/call-for-artifacts">Artifact Evaluation</a> Committee</div>
-            </li>
-            <li>
-              <div class="resume-year">2018</div>
-              <div><a href="https://www.springer.com/journal/778">VLDB Journal</a> − Reviewer</div>
-            </li>
-          </ul>
         </div>
         <!--
         <div class="main relative card">
