@@ -9,4 +9,4 @@ plugins:
 feed:
   path: blog/feed.xml
 
-url: people.inf.ethz.ch
+url: andrea.lattuada.me
