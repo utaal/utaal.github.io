@@ -137,6 +137,10 @@ span.comment {
   font-weight: bold;
 }
 
+ul.ul-service > li {
+  line-height: 1.8em;
+}
+
 .twitter-activity,
 .stackoverflow-activity {
   margin-top: 15px;
