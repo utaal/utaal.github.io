@@ -141,6 +141,14 @@ ul.ul-service > li {
   line-height: 1.8em;
 }
 
+ul.awards > li:first-child {
+  margin-top: 0px;
+}
+
+ul.awards > li {
+  margin-top: 5px;
+}
+
 .twitter-activity,
 .stackoverflow-activity {
   margin-top: 15px;
