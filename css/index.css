@@ -48,6 +48,16 @@ span.name-span {
     padding-bottom: 10px;
     float: none;
   }
+  .card.header > img {
+    float: right;
+    height: 240px;
+    margin-left: 20px;
+    margin-right: -10px;
+    margin-top: -15px;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    background-color: inherit !important;
+  }
 }
 p {
   padding: 0px;
@@ -66,9 +76,12 @@ div.relative {
 .card.header > img {
   float: right;
   height: 240px;
-  padding-left: 20px;
+  margin-left: 20px;
   margin-right: -10px;
   margin-top: -15px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  background-color: white;
 }
 .card-name {
   margin-top: 0;
@@ -190,5 +203,8 @@ span.highlight-2 {
 }
 
 .ad {
+  border: 1px solid black;
+  padding: 4px;
+  margin-left: -4px;
   background-color: #ffff88;
 }
