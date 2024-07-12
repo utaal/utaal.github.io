@@ -6,10 +6,10 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 11pt;
 }
-a {
+a, .clickable {
   text-decoration: none;
 }
-a:hover {
+a:hover, .clickable:hover {
   text-decoration: underline;
 }
 
@@ -46,4 +46,9 @@ div.base_header {
   justify-content: space-between;
   padding-left: 40px;
   padding-right: 40px;
+}
+
+.clickable {
+  color: blue;
+  cursor: pointer;
 }
