@@ -129,6 +129,16 @@ div.main > h3.small-h3 {
   line-height: 100%;
 }
 
+.horizontal-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 20px;
+  margin-top: -10px;
+  margin-right: 20px;
+  margin-bottom: -10px;
+}
+
 .resume-year {
 }
 
@@ -168,24 +178,20 @@ ul.awards > li {
   margin-top: 5px;
 }
 
-.twitter-activity,
-.stackoverflow-activity {
-  margin-top: 15px;
+p.student-blurb {
+  margin-bottom: 20px;
 }
 
-.github-activity li,
-.twitter-activity li,
-.stackoverflow-activity li {
-  font-size: 0.8em;
-  line-height: 1em;
-  padding: 5px 0px 5px 22px;
-  background-repeat: no-repeat;
-  background-position: left center;
+span.student-name {
+  font-weight: bold;
 }
 
-.github-activity .date,
-.stackoverflow-activity .date {
-  font-size: 0.78em;
+span.student-date:after, span.student-affiliation:after  {
+  content: " —";
+}
+
+span.student-event {
+  font-style: italic;
 }
 
 span.highlight, a.highlight {

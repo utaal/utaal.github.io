@@ -41,6 +41,15 @@
           <!--<p><a href="assets/Andrea-Lattuada.pdf">Here is my CV</a>.</p>-->
         </div>
         <div class="main relative card">
+          <nav class="horizontal-nav">
+            <a href="#awards">Awards</a>
+            <a href="#journal">Journal Publications</a>
+            <a href="#papers">Peer-reviewed publications</a>
+            <a href="#students">Advising and Mentoring</a>
+            <a href="#talks">Talks</a>
+          </nav>
+        </div>
+        <div class="main relative card">
           <p class="text">
           I am interested in <span class="highlight">systems software verification</span> as a way to substantially improve their safety and reliability, but to achieve this, the verification effort must be commensurate to the value it provides. I build verified systems, and extend the available tooling to find and fix inefficiencies.</p>
 
@@ -71,7 +80,7 @@
         <p class="text"> 
         </p>
         </div>-->
-        <div class="main relative card">
+        <div id="awards" class="main relative card">
           <h3>🏆 Awards</h3>
           <ul class="awards">
             <li><b>Jay Lepreau Best Paper Award</b> at <b>OSDI '24</b> for "<a href="https://www.usenix.org/conference/osdi24/presentation/sun-xudong" class="paper-title">Anvil: Verifying Liveness of Cluster Management Controllers</a>"</li>
@@ -79,7 +88,7 @@
             <li><b>Distinguished Paper Award</b> at <b>OOPSLA '22</b> for Linear Dafny ("<a href="https://doi.org/10.1145/3527313" class="paper-title">Linear Types for Large-Scale Systems Verification</a>")</li>
             <li>Recipient of the <a href="https://research.google/blog/announcing-the-2018-google-phd-fellows-for-north-america-europe-and-the-middle-east/?m=1"><b>2018 Google PhD Fellowship for Systems and Networking (2018-2022)</b></a></li>
         </div>
-        <div class="main relative card">
+        <div id="journal" class="main relative card">
           <h3>Journal Publications</h3>
           <ul class="resume">
             <li>
@@ -88,7 +97,7 @@
             </li>
           </ul>
         </div>
-        <div class="main relative card">
+        <div id="papers" class="main relative card">
           <h3>Peer-reviewed Publications</h3>
           <ul class="resume">
             <li>
@@ -187,6 +196,66 @@
             </li>
           </ul>
         </div>
+        <div id="students" class="main relative card">
+          <h3>Advising and mentoring</h3>
+          <p class="student-blurb">Over the last few years I have advised and mentored many brilliant students working with me on a variety of research projects.
+          With the exception of currently ongoing collaborations, students at ETH Zurich were co-supervised by my advisor, Prof. Timothy Roscoe.</p>
+          <ul class="resume">
+
+            <li>
+             <span class="student-date">Summer 2022</span> <span class="student-name">Johanna Polzin</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Bachelor Thesis</span> (in progress)
+             <div>Co-supervised by Matthias Brun and Prof. David Basin. Johanna is working on modeling a concurrent OS and verifying that it corresponds to a process-centric contract of OS behavior, which can be used as a foundation
+              for verified applications.
+             </div>
+            </li>
+
+            <li>
+             <span class="student-date">Summer 2022</span> <span class="student-name">Matthias Brun</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">PhD Student</span> (continued collaboration)
+             <div>Co-supervised by Prof. David Basin. Matthias is working on verifying the
+              correctness of an operating system's memory management subsystem (page table)
+              in relation to the memory management hardware (MMU, TLBs), and against a
+              process-centric contract of OS behavior, which can be used as a foundation
+              for verified applications.
+             </div>
+            </li>
+
+            <li>
+             <span class="student-date">Summer 2022</span> <span class="student-name">Matthias Brun</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Master Thesis</span>
+             <div>📄 <a href="https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/594366/Brun_Matthias.pdf?sequence=1&isAllowed=y">Verified Paging for x86-64 in Rust</a>. Part of this work was published as part of "Beyond isolation: OS verification as a foundation for correct applications" at HotOS 2023. Matthias' contributions to Verus were published as part of "Verus: Verifying Rust Programs using Linear Ghost Types" at OOPSLA 2023.</div>
+            </li>
+
+            <li>
+             <span class="student-date">Summer 2022</span> <span class="student-name">Isitha Subasinghe</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Research Assistant</span>
+             <div>Isitha contributed support for reasoning about character strings in Verus. This work was published as part of "Verus: Verifying Rust Programs using Linear Ghost Types" at OOPSLA 2023.</div>
+            </li>
+
+            <li>
+             <span class="student-date">November 2019 - May 2020</span> <span class="student-name">Sára Decova</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Master Thesis</span>
+             <div>Co-supervised by Dmitriy Traytel. 📄 <a href="https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/444762/Decova_Sara.pdf?sequence=1&isAllowed=y">Modelling and Verification of the Timely Dataflow Progress Tracking Protocol</a>. This work was published as part of "Verified Progress Tracking for Timely Dataflow" at ITP 2021.</div>
+            </li>
+
+            <li>
+             <span class="student-date">November 2019 - May 2020</span> <span class="student-name">Matthias Brun</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Master Thesis</span>
+             <div>Co-supervised by Dmitriy Traytel. Matthias worked on the modeling and verification of the Timely Dataflow's control plane protocol. This work was published as part of "Verified Progress Tracking for Timely Dataflow" at ITP 2021.</div>
+            </li>
+
+            <li>
+             <span class="student-date">October 2019 - April 2020</span> <span class="student-name">Lorenzo Selvatici</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Research Assistant</span>
+             <div>📄 <a href="https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/455359/Selvatici_Lorenzo.pdf?sequence=1&isAllowed=y">A Streaming System with Coordination-Free Fault-Tolerance</a></div>
+            </li>
+
+            <li>
+             <span class="student-date">October 2018 - April 2019</span> <span class="student-name">Lorenzo Martini</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Master Thesis</span>
+             <div>Co-supervised by Frank McSherry. 📄 <a href="https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/338594/Martini_Lorenzo.pdf?sequence=1&isAllowed=y">Performance implications of a Dataflow System’s Communication Plane</a></div>
+            </li>
+
+            <li>
+             <span class="student-date">July - Aug. 2018</span> <span class="student-name">Nazerke Seidan</span><span class="student-affiliation">, Eötvös Lorand University, Hungary</span> <span class="student-event">ETH Summer Student Research Fellowship</span>
+             <div>Co-supervised by Frank McSherry. Visualizing progress tracking, the control plane messages, of Timely Dataflow, a distributed dataflow data-processing engine.</div>
+            </li>
+          </ul>
+        </div>
+        <a id="talks"></a>
         <div class="main relative card">
           <h3>Workshop talks</h3>
           <ul class="resume">
