@@ -1,0 +1,37 @@
+---
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Andrea Lattuada -- Personal Zoom Meeting Room</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+    <meta http-equiv="refresh" content="0; url=https://eu02web.zoom-x.de/my/sws.andrea" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero">
+        <div class="main relative card">
+          <p class="card-name"><span class="name-span">Andrea Lattuada</span><br/><span class="email"><a href="mailto:andrea@lattuada.me">andrea@lattuada.me</a></span><br/>
+          <span class="clickable" id="mpi-email-reveal"><a>(click to reveal)</a>@mpi-sws.org</span>
+          <script language="JavaScript">
+            let mpi_element_reveal = document.getElementById('mpi-email-reveal');
+            mpi_element_reveal.onclick = () => {
+              let user = 'andrea';
+              let site = 'mpi-sws.org';
+              console.log(mpi_element_reveal);
+              mpi_element_reveal.innerHTML = '<a href=\"mailto:' + user + '@' + site + '\">' + user + '@' + site + '</a>';
+              mpi_element_reveal.onclick = null;
+            };
+          </script>
+        </div>
+        <div class="main relative card" style="font-weight: bold;">
+          Redirecting to my personal Zoom meeting room: <a href="https://eu02web.zoom-x.de/my/sws.andrea">https://eu02web.zoom-x.de/my/sws.andrea</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
