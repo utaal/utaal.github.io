@@ -1,0 +1,504 @@
+---
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Andrea Lattuada</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <!-- <a rel="me" href="https://discuss.systems/@andrea">Mastodon</a> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="base_header">
+      <div></div>
+      <a class="blog_link" href={{ "/blog" | relative_url }}>Words</a>
+    </div>
+    <div class="container">
+      <div class="hero">
+        <div class="main relative card header">
+          <img src="assets/small-profile-pic.jpg" alt="Andrea Lattuada" />
+          <p class="card-name"><span class="name-span">Andrea Lattuada</span> (Research Profile)<br/><span class="email"><a href="mailto:andrea@lattuada.me">andrea@lattuada.me</a></span><br/>
+          <span class="clickable" id="mpi-email-reveal"><a>(click to reveal)</a>@mpi-sws.org</span>
+          <script language="JavaScript">
+            let mpi_element_reveal = document.getElementById('mpi-email-reveal');
+            mpi_element_reveal.onclick = () => {
+              let user = 'andrea';
+              let site = 'mpi-sws.org';
+              console.log(mpi_element_reveal);
+              mpi_element_reveal.innerHTML = '<a href=\"mailto:' + user + '@' + site + '\">' + user + '@' + site + '</a>';
+              mpi_element_reveal.onclick = null;
+            };
+          </script>
+          <br/></p>
+          <p>I led the <a href="https://andrea.lattuada.me/principled.systems/"><span class="highlight">Principled Systems Group</span></a> at the <a href="https://www.mpi-sws.org">Max Planck Institute for Software Systems (MPI-SWS)</a> between September 2024 and June 2025.</p>
+          <!--<p class="ad"><a href="https://people.mpi-sws.org/~dreyer/">Derek Dreyer</a> and I have <b>open positions for PhD Students and Postdocs</b> who are interested in working on <span class="highlight">Systems Software Verification</span>, in particular focusing on making verification more practical and usable by engineers and on devising and leveraging advanced reasoning techniques. See my research profile below for more details on my work, and feel free to get in touch.</p>-->
+          <p>Between the beginning of 2023 and the first half of 2024 I was a Researcher in the <a href="https://research.vmware.com">VMware Research Group</a>. I got my PhD at the end of 2022 in the <a href="https://www.systems.ethz.ch">Systems Group</a> at <a href="https://www.ethz.ch/en.html">ETH Zürich</a>, advised by Prof. <a target="_blank" href="https://people.inf.ethz.ch/troscoe/">Timothy Roscoe</a>.</p>
+          <!--<p class="ad-2">If you are interested in working with me on a <b>Master Thesis</b>, <b>HiWi</b> (UdS), or <b>RIL project</b> (cs@max planck, UdS), or similar, please get in touch. <i>I receive a lot of emails. I try and respond to everyone — if I have not gotten back to you within a week, please send me a ping.</i></p>-->
+          <p class="ad-2">At the moment I do not have openings for internships, student applications, HiWi (UdS) or RIL projects.</p>
+          <!--<p><a href="assets/Andrea-Lattuada.pdf">Here is my CV</a>.</p>-->
+          <!--<p>I receive a lot of emails. I try and respond to everyone — if I have not gotten back to you within a week, please send me a ping.</p>-->
+        </div>
+        <div class="main relative card">
+          <nav class="horizontal-nav">
+            <a href="#awards">Awards</a>
+            <a href="#teaching">Teaching</a>
+            <a href="#papers">Peer-reviewed publications</a>
+            <a href="#journal">Journal Publications</a>
+            <a href="#students">Advising and Mentoring</a>
+            <a href="#talks">Talks</a>
+          </nav>
+        </div>
+        <div class="main relative card">
+          <p class="text">
+          In my research I've been interested in <span class="highlight">systems software verification</span> as a way to substantially improve their safety and reliability, but to achieve this, the verification effort must be commensurate to the value it provides. I build verified systems, and extend the available tooling to find and fix inefficiencies.</p>
+
+  <p>I led the <a href="https://andrea.lattuada.me/principled.systems/">Principled Systems Group</a> at the <a href="https://www.mpi-sws.org">Max Planck Institute for Software Systems (MPI-SWS)</a>.
+  You can find more information on the group on its <a href="https://andrea.lattuada.me/principled.systems/">website.</a></p>
+
+<p><b>I co-started (with Chris Hawblitzel, MSR) and I co-led the <a class="highlight-2" href="https://github.com/verus-lang/verus">Verus</a> project. Verus is a tool to rapidly verify the correctness of systems code written in Rust.</b>
+          The Verus project involves members from MPI-SWS, VMware Research, Microsoft Research, Carnegie Mellon University, ETH Zurich, University of Washington, University of Michigan, University of Wisconsin-Madison, and others.</p>
+
+
+          <p>We have been writing and verifying complex, concurrent systems programs in Verus. Researchers at the University of Utah are using Verus to write and verify a <a href="https://dl.acm.org/doi/10.1145/3625275.3625401">full-featured microkernel</a>, and Microsoft is writing and verifying <a href="https://github.com/microsoft/verified-storage">durable logs on persistent memory</a> with Verus.
+          </p>
+
+          <!--<p>I am starting to explore the <b>relationship between Rust's Ownership Logic, leveraged by Verus, and separation logic, in particular in the context of the <a href="https://iris-project.org">Iris Concurrent Separation Logic Framework</a></b>: I am interested in exploring ways to bring SMT-style automation to Iris-style proofs, and to bring advanced CSL-based reasoning to SMT-based tools like Verus.</p>-->
+
+          <br/>
+
+          <p class="text">I have worked on techniques for efficient re-scaling and fault-tolerance for streaming data processing systems, and I have worked on a new <b>dataflow-inspired programming model for Serverless platforms</b> as part of a collaboration with ETH Zurich.
+          </p>
+
+          <p class="text">With colleagues at VMware Research and ETH Zurich I have explored how to specify and verify an Operating System with the goal of providing a <b>useful, verified interface to the client applications</b> rather than just focusing on isolation and security properties.
+          </p>
+        </div>
+        <!--<div class="main relative card highlight">
+          <h3 class="small-h3">Looking for a thesis topic?</h3>
+          <p>We have several interesting projects and ideas suitable for Bachelor and Master thesis, or lab projects. If you are passionate about systems and want to work on state-of-the-art distributed systems, novel computational models, and fault-tolerance mechanisms, please send me an e-mail.</p>
+        </div>-->
+        <!-- <div class="main relative card">
+        <p class="text"> 
+        </p>
+        </div>-->
+        <div id="awards" class="main relative card">
+          <h3>🏆 Awards</h3>
+          <ul class="awards">
+            <li><b>PLDI Distinguished Paper Award</b> at <b>PLDI '25</b> for "<a href="https://iris-project.org/pdfs/2025-pldi-daenerys.pdf" class="paper-title">Destabilizing Iris</a>"</li>
+            <li><b>Distinguished Artifact Award</b> at <b>SOSP '24</b> for "<a href="https://dl.acm.org/doi/10.1145/3694715.3695952" class="paper-title">Verus: A Practical Foundation for Systems Verification</a>"</li>
+            <li><b>Jay Lepreau Best Paper Award</b> at <b>OSDI '24</b> for "<a href="https://www.usenix.org/conference/osdi24/presentation/sun-xudong" class="paper-title">Anvil: Verifying Liveness of Cluster Management Controllers</a>"</li>
+            <li>Recognized as <b><a href="https://www.asplos-conference.org/asplos2024/distinguished-reviewers/">Distinguished Reviewer</a></b> for ASPLOS '24</li>
+            <li><b>Distinguished Paper Award</b> at <b>OOPSLA '22</b> for Linear Dafny ("<a href="https://doi.org/10.1145/3527313" class="paper-title">Linear Types for Large-Scale Systems Verification</a>")</li>
+            <li>Recipient of the <a href="https://research.google/blog/announcing-the-2018-google-phd-fellows-for-north-america-europe-and-the-middle-east/?m=1"><b>2018 Google PhD Fellowship for Systems and Networking (2018-2022)</b></a></li>
+        </div>
+        <div id="teaching" class="main relative card">
+          <h3>Lectures offered at <a href="https://www.uni-saarland.de/en/home.html">Saarland University</a></h3>
+          <ul>
+            <li>Winter Semester 2024/2025 - <a href="https://cms.sic.saarland/sysverification2425/">Formal Verification of Systems Software</a>:
+              The course teaches how to formally verify systems software that underpins computing infrastructure using Rust and the Verus verification framework to ensure implementations match their abstract models and remain bug-free. By learning to model system behavior and write proofs with the help of SMT solvers, students gain the skills to design, implement, and verify distributed systems, which can prevent costly failures like data loss and service outages.</li>
+          </ul>
+        </div>
+        <div id="papers" class="main relative card">
+          <h3>Peer-reviewed Publications</h3>
+          <ul class="resume">
+            <li>
+                <div class="publication-year">PLDI 2025 ⸺<span style="font-weight: bold"> Distinguished Paper Award</span></div>
+                <div><a href="https://iris-project.org/pdfs/2025-pldi-daenerys.pdf" class="paper-title">Destabilizing Iris</a>, Simon Spies, Niklas Mück, Haoyi Zeng, Michael Sammler, Andrea Lattuada, Peter Müller, Derek Dreyer</div>
+                <div style="display: inline-block" class="publication-location">46th ACM SIGPLAN Conference on Programming Language Design and Implementation</div>
+            </li>
+            <li>
+                <div class="publication-year">SOSP 2024 ⸺<span style="font-weight: bold"> Distinguished Artifact Award</span></div>
+                <div><a href="https://dl.acm.org/doi/10.1145/3694715.3695952" class="paper-title">Verus: A Practical Foundation for Systems Verification</a>, Andrea Lattuada, Travis Hance, Jay Bosamiya, Matthias Brun, Chanhee Cho, Hayley LeBlanc, Pranav Srinivasan, Reto Achermann, Tej Chajed, Chris Hawblitzel, Jon Howell, Jacob R. Lorch, Oded Padon, Bryan Parno</div>
+                <div style="display: inline-block" class="publication-location">The 30th Symposium on Operating Systems Principles</div>
+            </li>
+            <li>
+                <div class="publication-year">OSDI 2024 ⸺<span style="font-weight: bold"> Jay Lepreau Best Paper Award</span></div>
+                <div><a href="https://www.usenix.org/conference/osdi24/presentation/sun-xudong" class="paper-title">Anvil: Verifying Liveness of Cluster Management Controllers</a>, Xudong Sun, Wenjie Ma, Jiawei Tyler Gu, Zicheng Ma, Tej Chajed, Jon Howell, Andrea Lattuada, Oded Padon, Lalith Suresh, Adriana Szekeres, Tianyin Xu</div>
+                <div style="display: inline-block" class="publication-location">18th USENIX Symposium on Operating Systems Design and Implementation</div>
+            </li>
+            <li>
+              <div class="resume-year">OOPSLA 2023</div>
+              <div><a href="https://doi.org/10.1145/3586037" class="paper-title">Verus: Verifying Rust Programs using Linear Ghost Types</a>, Andrea Lattuada, Travis Hance, Chanhee Cho, Matthias Brun, Isitha Subasinghe, Yi Zhou, Jon Howell, Bryan Parno, Chris Hawblitzel</div>
+              <div style="display: inline-block" class="resume-location">Proceedings of the ACM on Programming Languages</div>
+            </li>
+            <li>
+              <div class="resume-year">HotOS 2023</div>
+              <div><a href="assets/hotos23-beyond-isolation.pdf" class="paper-title">Beyond isolation: OS verification as a foundation for correct applications</a>, Matthias Brun, Reto Achermann, Tej Chajed, Jon Howell, Gerd Zellweger, Andrea Lattuada</div>
+              <div style="display: inline-block" class="resume-location">The 19th Workshop on Hot Topics in Operating Systems</div>
+            </li>
+            <li>
+              <div class="resume-year">OSDI 2023</div>
+              <div><a href="https://www.usenix.org/conference/osdi23/presentation/hance" class="paper-title">Sharding the State Machine: Automated Modular Reasoning for Complex Concurrent Systems</a>, Travis Hance, Yi Zhou, Andrea Lattuada, Reto Achermann, Alex Conway, Ryan Stutsman, Gerd Zellweger, Chris Hawblitzel, Jon Howell, Bryan Parno</div>
+              <div style="display: inline-block" class="resume-location">17th USENIX Symposium on Operating Systems Design and Implementation </div>
+            </li>
+            <li>
+              <div class="resume-year">OOPSLA 2022 ⸺<span style="font-weight: bold"> Distinguished Paper Award</span></div>
+              <div><a href="https://doi.org/10.1145/3527313" class="paper-title">Linear Types for Large-Scale Systems Verification</a>, Jialin Li, Andrea Lattuada, Yi Zhou, Jonathan Cameron, Jon Howell, Bryan Parno, Chris Hawblitzel</div>
+              <div style="display: inline-block" class="resume-location">Proceedings of the ACM on Programming Languages </div>
+            </li>
+            <li>
+              <div class="resume-year">ITP 2021</div>
+              <div><a href="https://drops.dagstuhl.de/opus/volltexte/2021/13905/pdf/LIPIcs-ITP-2021-10.pdf" class="paper-title">Verified Progress Tracking for Timely Dataflow</a> [<a href="https://github.com/matthias-brun/progress-tracking-formalization/raw/main/rep.pdf">Technical Report</a>], Matthias Brun, Sára Decova, Andrea Lattuada, Dmitriy Traytel</div>
+              <div style="display: inline-block" class="resume-location">The International Conference on Interactive Theorem Proving</div>
+            </li>
+            <li>
+              <div class="resume-year">OSDI 2020</div>
+              <div><a class="paper-title" href="https://www.usenix.org/conference/osdi20/presentation/hance">Storage Systems are Distributed Systems (So Verify Them That Way!)</a>, Travis Hance, Andrea Lattuada, Chris Hawblitzel, Jon Howell, Rob Johnson, Bryan Parno</div>
+              <div style="display: inline-block" class="resume-location">14th USENIX Symposium on Operating Systems Design and Implementation</div>
+            </li>
+            <li>
+              <div class="resume-year">VLDB 2020</div>
+              <div><a class="paper-title" href="http://www.vldb.org/pvldb/vol13/p1793-mcsherry.pdf">Shared Arrangements: practical inter-query sharing for streaming dataflows</a> [<a class="paper-title" href="https://arxiv.org/abs/1812.02639">Technical report</a>] [<a href="https://youtu.be/MOG_eLoLgeQ">Talk video</a>], Frank McSherry, Andrea Lattuada, Malte Schwarzkopf, Timothy Roscoe</div>
+              <div class="resume-location">Proceedings of the VLDB Endowment, Volume 13, No. 10 (VLDB 2020)</div>
+            </li>
+            <li>
+              <div class="resume-year">VLDB 2019</div>
+              <div><a class="paper-title" href="http://www.vldb.org/pvldb/vol12/p1002-hoffmann.pdf">Megaphone: Latency-conscious state migration for distributed streaming dataflows</a>, Moritz Hoffmann, Andrea Lattuada, Frank McSherry, Vasiliki Kalavri, John Liagouris, Timothy Roscoe</div>
+              <div class="resume-location">Proceedings of the VLDB Endowment, Volume 12, 2018-2019</div>
+            </li>
+            <li>
+              <div class="resume-year">BeyondMR 2018</div>
+              <div><a class="paper-title" href="https://wiki.antiguru.de/lib/exe/fetch.php/pub/hoffmann_beyondmr18.pdf">Latency-conscious dataflow reconfiguration</a>, Moritz Hoffmann, Frank McSherry, Andrea Lattuada</div>
+              <div class="resume-location">Proceedings of the 5th ACM SIGMOD Workshop on Algorithms and Systems for MapReduce and Beyond</div>
+            </li>
+            <li>
+              <div class="resume-year">NSDI 2018</div>
+              <div><a class="paper-title" href="https://www.usenix.org/conference/nsdi18/presentation/hoffmann">SnailTrail: Generalizing critical paths for online analysis of distributed dataflows</a> [<a href="https://doi.org/10.3929/ethz-b-000228581">Technical report</a>], Moritz Hoffmann, Andrea Lattuada, John Liagouris, Vasiliki Kalavri, Desislava Dimitrova, Sebastian Wicki, Zaheer Chothia, Timothy Roscoe</div>
+              <div class="resume-location">Proceedings of the 15th USENIX Symposium on Networked Systems Design and Implementation</div>
+            </li>
+            <li>
+              <div class="resume-year">BeyondMR 2016</div>
+              <div><a class="paper-title" href="assets/faucet-beyondmr16.pdf">Faucet: a user-level, modular technique for flow control in dataflow engines</a>, Andrea Lattuada, Frank McSherry, Zaheer Chotia</div>
+              <div class="resume-location">Proceedings of the 3rd ACM SIGMOD Workshop on Algorithms and Systems for MapReduce and Beyond</div>
+            </li>
+          </ul>
+        </div>
+        <div id="journal" class="main relative card">
+          <h3>Journal Publications</h3>
+          <ul class="resume">
+            <li>
+                <div class="publication-year">Usenix <b>;login:</b> ⸺ June 2024</div>
+                <div><a href="https://www.usenix.org/publications/loginonline/anvil-building-formally-verified-kubernetes-controllers" class="paper-title">Anvil: Building Kubernetes Controllers That Do Not Break</a>, Xudong Sun, Jiawei Tyler Gu, Cody Rivera, Tej Chajed, Jon Howell, Andrea Lattuada, Oded Padon, Lalith Suresh, Adriana Szekeres, Tianyin Xu</div>
+            </li>
+          </ul>
+        </div>
+        <div class="main relative card">
+          <h3>Workshops, Conferences, Peer-review Service</h3>
+          <ul class="resume-compact ul-service">
+            <li>
+              <div><a href="https://www.asplos-conference.org/asplos2026/">ASPLOS '26</a> − External Review Committee</div>
+            </li>
+            <li>
+              <div>OOPSLA '26 − Program Committee (accepted invite)</div>
+            </li>
+            <li>
+              <div><a href="https://sites.google.com/view/rustverify2025">RW2025 Rust Verification Workshop</a> − Co-chair</div>
+            </li>
+            <li>
+              <div><a href="https://www.usenix.org/conference/osdi25">OSDI '25</a> − Program Committee</div>
+            </li>
+            <li>
+              <div><a href="https://www.asplos-conference.org/asplos2025/">ASPLOS '25</a> − External Review Committee</div>
+            </li>
+            <li>
+              <div><a href="https://www.usenix.org/conference/nsdi25">NSDI '25</a> − Program Committee</div>
+            </li>
+            <li>
+                    <!--<div class="resume-year">2023</div>-->
+              <div><a href="https://popl24.sigplan.org/home/dafny-2024">Dafny '24</a> − Program Committee</div>
+            </li>
+            <li>
+              <!--<div class="resume-year">2023-2024</div>-->
+              <div><a href="https://asplos-conference.org">ASPLOS '24</a> − Program Committee <span style="font-weight: bold">- 🏆 <a href="https://www.asplos-conference.org/asplos2024/distinguished-reviewers/">Distinguished Reviewer</a></span></div>
+            </li>
+            <li>
+                    <!--<div class="resume-year">2021</div>-->
+              <div><a href="https://asplos-conference.org">ASPLOS '22</a> − External Review Committee</div>
+            </li>
+            <li>
+                    <!--<div class="resume-year">2021</div>-->
+              <div><a href="https://www.usenix.org/conference/osdi21">OSDI '21</a> − <a href="https://www.usenix.org/conference/osdi21/call-for-artifacts">Artifact Evaluation</a> Committee</div>
+            </li>
+            <li>
+                    <!--<div class="resume-year">2018</div>-->
+              <div>2018 - <a href="https://www.springer.com/journal/778">VLDB Journal</a> − Referred reviewer</div>
+            </li>
+          </ul>
+        </div>
+        <div id="students" class="main relative card">
+          <h3>Advising and Mentoring</h3>
+          <p class="student-blurb">Over the last few years I have advised and mentored many brilliant students working with me on a variety of research projects.
+          With the exception of currently ongoing collaborations, students at ETH Zurich were co-supervised by my advisor, Prof. Timothy Roscoe.</p>
+          <ul class="resume">
+
+            <li>
+             <span class="student-date">April-October 2024</span> <span class="student-name">Johanna Polzin</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Bachelor Thesis</span>
+             <div>Co-supervised by Matthias Brun and Prof. David Basin. Johanna is working on modeling a concurrent OS and verifying that it corresponds to a process-centric contract of OS behavior, which can be used as a foundation
+              for verified applications.
+             </div>
+            </li>
+
+            <li>
+             <span class="student-date">August-November 2024</span> <span class="student-name">Pranav Srinivasan</span><span class="student-affiliation">, VMware Research, US</span> <span class="student-event">Research Intern</span>
+             <div>Co-supervised by Jon Howell and Oded Padon. Pranav worked on better understanding the verification performance implications of quantifier instantiation across program modules: this work was presented at the Dafny 2024 Workshop as "Domesticating Automation". Pranav also worked on supporting a decidable logic fragment in Verus which enables a complete and fast decision procedure in the solver.
+             </div>
+            </li>
+
+            <li>
+             <span class="student-date">Since 2023</span> <span class="student-name">Matthias Brun</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">PhD Student</span> (continued collaboration)
+             <div>Co-supervised by Prof. David Basin. Matthias is working on verifying the
+              correctness of an operating system's memory management subsystem (page table)
+              in relation to the memory management hardware (MMU, TLBs), and against a
+              process-centric contract of OS behavior, which can be used as a foundation
+              for verified applications.
+             </div>
+            </li>
+
+            <li>
+             <span class="student-date">April - October 2022</span> <span class="student-name">Matthias Brun</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Master Thesis</span>
+             <div>📄 <a href="https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/594366/Brun_Matthias.pdf?sequence=1&isAllowed=y">Verified Paging for x86-64 in Rust</a>. Part of this work was published as part of "Beyond isolation: OS verification as a foundation for correct applications" at HotOS 2023. Matthias' contributions to Verus were published as part of "Verus: Verifying Rust Programs using Linear Ghost Types" at OOPSLA 2023.</div>
+            </li>
+
+            <li>
+             <span class="student-date">Summer 2022</span> <span class="student-name">Isitha Subasinghe</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Research Assistant</span>
+             <div>Isitha contributed support for reasoning about character strings in Verus. This work was published as part of "Verus: Verifying Rust Programs using Linear Ghost Types" at OOPSLA 2023.</div>
+            </li>
+
+            <li>
+             <span class="student-date">November 2019 - May 2020</span> <span class="student-name">Sára Decova</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Master Thesis</span>
+             <div>Co-supervised by Dmitriy Traytel. 📄 <a href="https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/444762/Decova_Sara.pdf?sequence=1&isAllowed=y">Modelling and Verification of the Timely Dataflow Progress Tracking Protocol</a>. This work was published as part of "Verified Progress Tracking for Timely Dataflow" at ITP 2021.</div>
+            </li>
+
+            <li>
+             <span class="student-date">November 2019 - May 2020</span> <span class="student-name">Matthias Brun</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Research Assistant</span>
+             <div>Co-supervised by Dmitriy Traytel. Matthias worked on the modeling and verification of the Timely Dataflow's control plane protocol. This work was published as part of "Verified Progress Tracking for Timely Dataflow" at ITP 2021.</div>
+            </li>
+
+            <li>
+             <span class="student-date">October 2019 - April 2020</span> <span class="student-name">Lorenzo Selvatici</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Master Thesis</span>
+             <div>📄 <a href="https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/455359/Selvatici_Lorenzo.pdf?sequence=1&isAllowed=y">A Streaming System with Coordination-Free Fault-Tolerance</a></div>
+            </li>
+
+            <li>
+             <span class="student-date">October 2018 - April 2019</span> <span class="student-name">Lorenzo Martini</span><span class="student-affiliation">, ETH Zurich, Switzerland</span> <span class="student-event">Master Thesis</span>
+             <div>Co-supervised by Frank McSherry. 📄 <a href="https://www.research-collection.ethz.ch/bitstream/handle/20.500.11850/338594/Martini_Lorenzo.pdf?sequence=1&isAllowed=y">Performance implications of a Dataflow System’s Communication Plane</a></div>
+            </li>
+
+            <li>
+             <span class="student-date">July - Aug. 2018</span> <span class="student-name">Nazerke Seidan</span><span class="student-affiliation">, Eötvös Lorand University, Hungary</span> <span class="student-event">ETH Summer Student Research Fellowship</span>
+             <div>Co-supervised by Frank McSherry. Visualizing progress tracking, the control plane messages, of Timely Dataflow, a distributed dataflow data-processing engine.</div>
+            </li>
+          </ul>
+        </div>
+        <a id="talks"></a>
+        <div class="main relative card">
+          <h3>Selected talks</h3>
+          <ul class="resume">
+            <li>
+             <div class="resume-year"><b>Invited talk</b> at AWS Identity, Amazon Inc., Remote</div>
+             <div><span class="paper-title">Verus – Efficient Verification of Rust Programs</span></div>
+            </li>
+            <li>
+             <div class="resume-year">New England Verification Workshop 2024, MIT CSAIL, Cambridge, Massachusetts, USA</div>
+             <div><span class="paper-title">Tunable automation for SMT-based verification in Verus</span></div>
+            </li>
+            <li>
+             <div class="resume-year">Dafny 2024 Workshop at POPL 2024, Paris, France</div>
+             <div>Co-author of <span class="paper-title">Domesticating Automation</p></div>
+             <div><i>To be presented by Pranav Srinivasan</i></div>
+            </li>
+            <li>
+             <div class="resume-year">Rust Verification Workshop (RW2023) at ETAPS 2023, Paris, France</div>
+             <div><span class="paper-title">Rust Ghost Code</span></div>
+            </li>
+            <li>
+             <div class="resume-year"><b>Invited talk</b> at the New England Verification Workshop 2022, MIT CSAIL, Cambridge, Massachusetts, USA</div>
+             <div><span class="paper-title">Verus -- SMT-based verification of low-level systems code</span></div>
+            </li>
+            <li>
+             <div class="resume-year">Rust Verification Workshop (RW2022) at ETAPS 2022, Munich / Garching, Germany</div>
+             <div><span class="paper-title">Verus -- SMT-based verification of low-level systems code</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="main relative card">
+          <h3>Community talks</h3>
+          <ul class="resume" style="column-count: 2;">
+            <li>
+             <div class="resume-year">June 2023, Zürich Rust Meetup, ETH Zurich, Switzerland</div>
+             <div><span class="paper-title">Verus -- Verified Rust for low-level systems code</span></div>
+            </li>
+            <li>
+             <div class="resume-year">Rust Devroom at FOSDEM 2019, Brussels, Belgium</div>
+             <div><span class="paper-title">Containing the RDMA plasma</span></div>
+            </li>
+            <li>
+             <div class="resume-year">Rustfest 2017, Zürich, Switzerland</div>
+             <div><span class="paper-title">A hammer you can only hold by the handle</span></div>
+            </li>
+            <li>
+             <div class="resume-year">March 2017, Papers we love, Zürich, Switzerland</div>
+             <div><span class="paper-title">Naiad: A timely dataflow system</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="main relative card">
+          <input id="posters-toggle" type="checkbox" />
+          <label for="posters-toggle"><h3>Posters</h3></label>
+          <ul id="posters" class="resume">
+            <li>
+              <div class="resume-location">SOSP'17 - Poster session</div>
+              <div>[Poster] <a class="paper-title" href="assets/no-sync.pdf">No-sync: coordination-free fault-tolerance in streaming</a>, Andrea Lattuada, Vasiliki Kalavri, Moritz Hoffmann, Frank McSherry</div>
+            </li>
+            <li>
+              <div class="resume-location">Eurosys'17 - Poster session</div>
+              <div>[Poster] <a href="https://eurosys2017.github.io/assets/data/posters/poster21-Lattuada.pdf">Differential durability: fault-tolerant distributed differential computation</a>, Andrea Lattuada, Vasiliki Kalavri, Moritz Hoffman, Frank McSherry</div>
+            </li>
+            <li>
+              <div class="resume-location">Eurosys'17 - Poster session</div>
+              <div>[Poster] <a href="https://eurosys2017.github.io/assets/data/posters/poster13-Sager.pdf">SnailTrail: Online Bottleneck Detection for your Dataflow</a>, R. Sager, John Liagouris, Desislava Dimitrova, Andrea Lattuada, Vasiliki Kalavri, Zaheer Chothia, Moritz Hoffmann, Timothy Roscoe</div>
+            </li>
+          </ul>
+          <style>
+            #posters {
+              height: 0px;
+              overflow: hidden;
+            }
+            #posters-toggle ~ label > h3 {
+              display: inline;
+            }
+            #posters-toggle {
+              display: none;
+              visibility: hidden;
+            }
+            #posters-toggle ~ label {
+              display: block;
+              color: #666;
+            }
+            #posters-toggle:checked ~ #posters {
+              overflow: auto;
+              height: auto;
+            }
+            #posters-toggle:checked ~ label {
+              padding-bottom: 1em;
+              color: inherit;
+            }
+            #posters-toggle ~ label:hover {
+              text-decoration: underline;
+              cursor: pointer;
+            }
+            #posters-toggle ~ label::before {
+              content: " ";
+              vertical-align: text-bottom;
+              display: inline-block;
+              width: 22px;
+              height: 22px;
+              margin-right: 3px;
+              background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+            }
+            #posters-toggle ~ label::after {
+              content: "[click to expand]";
+              font-size: .8em;
+              margin-left: .5em;
+            }
+            #posters-toggle:checked ~ label::before {
+              content: " ";
+              background: radial-gradient(ellipse at center, #88C 50%, transparent 50%);
+            }
+            #posters-toggle:checked ~ label::after {
+              content: "";
+              font-size: .8em;
+              margin-left: .5em;
+            }
+          </style>
+        </div>
+        <!--
+        <div class="main relative card">
+          <h3>Selected talks</h3>
+          <ul class="resume">
+            <li>
+              <div class="resume-year">September, 2020</div>
+              <div><a href="https://www.youtube.com/watch?v=MOG_eLoLgeQ">Shared Arrangements: practical inter-query sharing for streaming dataflows</a></div>
+              <div class="resume-location"><a href="https://vldb2020.org">VLDB 2020</a>, Online</div>
+            </li>
+            <li>
+              <div class="resume-year">February 3rd, 2019</div>
+              <div><a href="https://www.youtube.com/watch?v=P6EMo8kJ3q4">Containing the (RDMA) plasma</a></div>
+              <div class="resume-location"><a href="https://fosdem.org/2019/schedule/track/rust/">FOSDEM - Rust Devroom</a>, Brussels, Belgium</div>
+            </li>
+            <li>
+              <div class="resume-year">September 30th, 2017</div>
+              <div><a href="https://speakerdeck.com/utaal/a-hammer-you-can-only-hold-by-the-handle">A hammer you can only hold by the handle</a></div>
+              <div class="resume-location"><a href="http://zurich.rustfest.eu">RustFest</a>, Zürich, Switzerland</div>
+            </li>
+            <li>
+              <div class="resume-year">April 7th, 2017</div>
+              <div>Typeclasses — A type system construct</div>
+              <div class="resume-location"><a href="http://scalar-conf.com">Scalar</a> conf, Warsaw, Poland</div>
+            </li>
+            <li>
+              <div class="resume-year">March 23rd, 2017</div>
+              <div><a href="https://github.com/papers-we-love/zurich/tree/master/2017.03.26-Naiad">Papers we ❤️ &nbsp;Zürich - Naiad: A timely dataflow system</a></div>
+              <div class="resume-location">Papers we love, <a href="https://www.meetup.com/Papers-we-love-Zurich/">Zürich chapter</a></div>
+            </li>
+          </ul>
+        </div>
+        <div class="main relative card">
+          <h3>Teaching assistant</h3>
+          <ul class="resume">
+            <li>
+              <div class="resume-year">Spring Semester 2017</div>
+              <div><a href="https://www.systems.ethz.ch/courses/spring2017/iap">Internet architecture and policy</a></div>
+              <div class="resume-location"></div>
+            </li>
+            <li>
+              <div class="resume-year">Autumn Semester 2017, 2018</div>
+              <div><a href="http://lec.inf.ethz.ch/baug/informatik1/2017">Informatik I (D-BAUG)</a></div>
+              <div class="resume-location"></div>
+            </li>
+            <li>
+              <div class="resume-year">Spring Semester 2018</div>
+              <div><a href="https://www.systems.ethz.ch/courses/spring2018/informationretrieval">Information Retrieval</a></div>
+              <div class="resume-location"></div>
+            </li>
+            <li>
+              <div class="resume-year">Autumn Semester 2019</div>
+              <div><a href="https://www.systems.ethz.ch/courses/fall2019/information_retrieval">Information Retrieval</a></div>
+              <div class="resume-location"></div>
+            </li>
+          </ul>
+        </div>
+        -->
+      </div>
+      <!--
+      <div class="posts">
+        {% for post in site.posts %}
+        <div class="main relative card header">
+          {% if post.link == null %}
+            <a href={{ post.url | prepend:site.baseurl }}><h2>{{ post.title }}</h2></a>
+            {{ post.date | date_to_long_string }}
+            <div class="text excerpt">
+            {{ post.excerpt }}
+            </div>
+            <a href={{ post.url | prepend:site.baseurl }}>Continue reading</a>
+          {% else %}
+            <a href={{ post.link }}><h2>{{ post.title }}</h2></a>
+            {{ post.date | date_to_long_string }}
+            <div class="text excerpt">
+            {{ post.excerpt }}
+            </div>
+            <a href={{ post.link }}>{{ post.action }}</a>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      -->
+    </div>
+
+  </body>
+</html>
